@@ -3,6 +3,7 @@ package aaa.weatherapp;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -13,6 +14,8 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,15 +53,21 @@ public class MainActivity extends AppCompatActivity {
 //        LineDataSet pressureDataSet = new LineDataSet(chartData.getPressures(), "Pressure");
 //        pressureDataSet.setColor(Color.BLACK);
 //        pressureDataSet.setCircleRadius(3);
-//        pressureDataSet.setCircleColor(Color.MAGENTA);
+//        pressureDataSet.setCircleColor(Color.BLACK);
         temperatureChart.setData(new LineData(temperatureDataSet, cloudCoverDataSet, humidityDataSet));
         temperatureChart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
-            public String getFormattedValue(float value) {
-                return new Date((long)value).toString();
+            public String getFormattedValue(float epochSeconds) {
+                return getWeekday((long) epochSeconds);
             }
         });
         temperatureChart.invalidate();
+    }
+
+    private String getWeekday(long epochSeconds) {
+        long epochMilliseconds = epochSeconds * 1000;
+        SimpleDateFormat weekdayFormat = new SimpleDateFormat("EEE ha");
+        return weekdayFormat.format(new Date(epochMilliseconds));
     }
 
     private void setCityName(JSONObject response) throws JSONException {
