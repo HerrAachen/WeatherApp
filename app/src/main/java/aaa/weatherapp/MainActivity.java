@@ -1,8 +1,12 @@
 package aaa.weatherapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -31,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return true;
     }
 
     private void updateChart(JSONObject response) throws JSONException {
@@ -71,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
     private void setCityName(JSONObject response) throws JSONException {
         String cityName = response.getJSONObject("city").getString("name");
         String country = response.getJSONObject("city").getString("country");
-        ((TextView)findViewById(R.id.cityInfo)).setText(cityName + " (" + country + ")");
+        setTitle(cityName + " (" + country + ")");
+    }
+
+    public void openSettingsView(MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }
