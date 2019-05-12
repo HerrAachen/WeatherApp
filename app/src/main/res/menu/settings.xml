@@ -4,10 +4,12 @@
     <item android:id="@+id/action_settings"
         android:title="@string/settings"
         app:showAsAction="always"
-        android:onClick="openSettingsView"/>
+        android:onClick="openSettingsView"
+        android:icon="@drawable/baseline_settings_black_18dp"/>
     <item android:id="@+id/action_refresh"
         android:title="@string/refresh"
         app:showAsAction="ifRoom"
-        android:onClick="refreshWeatherView"/>
+        android:onClick="refreshWeatherView"
+        android:icon="@drawable/baseline_refresh_black_18dp"/>
 
 </menu>
