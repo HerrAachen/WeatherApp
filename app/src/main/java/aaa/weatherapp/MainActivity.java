@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
@@ -22,19 +21,13 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
+    private WeatherApiClient weatherApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        WeatherApiClient weatherApiClient = new WeatherApiClient(this.getApplicationContext());
-        weatherApiClient.getOneDayForecast(response -> {
-            try {
-                setCityName(response);
-                updateChart(response);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        });
+        weatherApiClient = new WeatherApiClient(this.getApplicationContext());
+        refreshWeatherView(null);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -86,5 +79,16 @@ public class MainActivity extends AppCompatActivity {
     public void openSettingsView(MenuItem item) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+    }
+
+    public void refreshWeatherView(MenuItem item) {
+        weatherApiClient.getOneDayForecast(ApplicationState.cityId, response -> {
+            try {
+                setCityName(response);
+                updateChart(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

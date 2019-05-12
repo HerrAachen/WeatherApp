@@ -2,7 +2,10 @@ package aaa.weatherapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +15,7 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private Map<String, String> id2city = new HashMap<>();
+    private Map<String, String> city2id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,18 +23,34 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         setTitle(getString(R.string.settings));
 
+        city2id = readCitiesFromFile();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, city2id.keySet().toArray(new String[]{}));
+        AutoCompleteTextView textView = findViewById(R.id.cityDropdown);
+        textView.setAdapter(adapter);
+        textView.setOnItemClickListener((parent, view, position, id) -> {
+            String cityName = adapter.getItem(position);
+            ApplicationState.cityId = city2id.get(cityName);
+        });
+    }
+
+    private Map<String, String> readCitiesFromFile() {
+
+        Map<String, String> id2city = new HashMap<>();
         BufferedReader cityReader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.cities)));
 
         try {
             String line = cityReader.readLine();
             do {
                 String[] parts = line.split("=");
-                id2city.put(parts[0], parts[1]);
-                ((TextView) findViewById(R.id.countryText)).setText(parts[1]);
+                String id = parts[0];
+                String cityName = parts[1];
+                id2city.put(cityName, id);
                 line = cityReader.readLine();
             } while (line != null);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return id2city;
     }
 }

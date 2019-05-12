@@ -21,16 +21,16 @@ public class WeatherApiClient {
         apiKey = BuildConfig.apiKey;
     }
 
-    public void getOneDayForecast(Response.Listener<JSONObject> callbackFunction) {
+    public void getOneDayForecast(String cityId, Response.Listener<JSONObject> callbackFunction) {
         int resultLimit = 12;
-        String url = getOpenWeatherUrl(resultLimit);
+        String url = getOpenWeatherUrl(cityId, resultLimit);
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(new JsonObjectRequest(Request.Method.GET, url, null, callbackFunction, error -> {
-            Log.e("Open Weather API", error.getMessage());
+            Log.e("Open Weather API Error", new String(error.networkResponse.data));
         }));
     }
 
-    private String getOpenWeatherUrl(int resultLimit) {
-        return OPEN_WEATHER_BASE_URL + "?id=6173331&units=metric&APPID=" + apiKey + "&cnt=" + resultLimit;
+    private String getOpenWeatherUrl(String cityId, int resultLimit) {
+        return OPEN_WEATHER_BASE_URL + "?id=" + cityId + "&units=metric&APPID=" + apiKey + "&cnt=" + resultLimit;
     }
 }
