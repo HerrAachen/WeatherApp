@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 showError(e.getMessage());
                 e.printStackTrace();
             }
-        });
+        }, errorMessage -> showError("Error: " + errorMessage));
     }
 
     private void showChart() {

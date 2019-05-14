@@ -3,6 +3,7 @@ package aaa.weatherapp;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,7 +23,7 @@ public class WeatherApiClient {
         apiKey = BuildConfig.apiKey;
     }
 
-    public void getOneDayForecast(String cityId, Response.Listener<JSONObject> callbackFunction) {
+    public void getOneDayForecast(String cityId, Response.Listener<JSONObject> callbackFunction, ErrorHandler errorHandler) {
         int resultLimit = 12;
         String url = getOpenWeatherUrl(cityId, resultLimit);
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -31,7 +32,11 @@ public class WeatherApiClient {
             if (error.networkResponse != null) {
                 errorString = new String(error.networkResponse.data);
             }
+            if (error instanceof NoConnectionError) {
+                errorString = "Not connected to the internet";
+            }
             Log.e("Open Weather API Error", errorString);
+            errorHandler.handleError(errorString);
         }));
     }
 
