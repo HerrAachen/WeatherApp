@@ -2,8 +2,6 @@ package aaa.weatherapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -23,15 +21,22 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         setTitle(getString(R.string.settings));
 
-        city2id = readCitiesFromFile();
+        city2id = readCitiesFromFileOrCache();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, city2id.keySet().toArray(new String[]{}));
         AutoCompleteTextView textView = findViewById(R.id.cityDropdown);
         textView.setAdapter(adapter);
         textView.setOnItemClickListener((parent, view, position, id) -> {
             String cityName = adapter.getItem(position);
-            ApplicationState.cityId = city2id.get(cityName);
+            AppState.cityId = city2id.get(cityName);
         });
+    }
+
+    private Map<String, String> readCitiesFromFileOrCache() {
+        if (AppState.cityList == null) {
+            AppState.cityList = readCitiesFromFile();
+        }
+        return AppState.cityList;
     }
 
     private Map<String, String> readCitiesFromFile() {

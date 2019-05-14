@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void refreshWeatherView(MenuItem item) {
-        weatherApiClient.getOneDayForecast(ApplicationState.cityId, response -> {
+        weatherApiClient.getOneDayForecast(AppState.cityId, response -> {
             try {
                 setCityName(response);
                 updateChart(response);
