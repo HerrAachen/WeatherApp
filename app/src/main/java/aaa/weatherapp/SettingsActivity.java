@@ -1,7 +1,11 @@
 package aaa.weatherapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -31,6 +35,11 @@ public class SettingsActivity extends AppCompatActivity {
             AppState.cityId = city2id.get(cityName);
         });
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_actions, menu);
+        return true;
+    }
 
     private Map<String, String> readCitiesFromFileOrCache() {
         if (AppState.cityList == null) {
@@ -57,5 +66,10 @@ public class SettingsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return id2city;
+    }
+
+    public void navigateToMainActivity(MenuItem item) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

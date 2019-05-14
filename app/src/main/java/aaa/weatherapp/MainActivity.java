@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.settings, menu);
+        inflater.inflate(R.menu.main_settings, menu);
         return true;
     }
 
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 updateChart(response);
                 showChart();
             } catch (JSONException e) {
+                showError(e.getMessage());
                 e.printStackTrace();
             }
         });
@@ -98,10 +100,20 @@ public class MainActivity extends AppCompatActivity {
     private void showChart() {
         findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.GONE);
         findViewById(R.id.temperatureChart).setVisibility(View.VISIBLE);
+        findViewById(R.id.errorText).setVisibility(View.GONE);
     }
 
     private void showLoadingScreen() {
         findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.VISIBLE);
         findViewById(R.id.temperatureChart).setVisibility(View.GONE);
+        findViewById(R.id.errorText).setVisibility(View.GONE);
+    }
+
+    private void showError(String errorText) {
+        findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.GONE);
+        findViewById(R.id.temperatureChart).setVisibility(View.GONE);
+        TextView errorTextView = (TextView)findViewById(R.id.errorText);
+        errorTextView.setVisibility(View.VISIBLE);
+        errorTextView.setText(errorText);
     }
 }
