@@ -26,10 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private WeatherApiClient weatherApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        weatherApiClient = new WeatherApiClient(this.getApplicationContext());
-        refreshWeatherView(null);
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            weatherApiClient = new WeatherApiClient(this.getApplicationContext());
+            refreshWeatherView(null);
+        } catch (Exception e) {
+            showError("An error occurred: " + e.getMessage());
+        }
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
