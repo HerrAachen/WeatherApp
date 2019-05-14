@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
@@ -82,13 +83,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void refreshWeatherView(MenuItem item) {
+        showLoadingScreen();
         weatherApiClient.getOneDayForecast(AppState.cityId, response -> {
             try {
                 setCityName(response);
                 updateChart(response);
+                showChart();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    private void showChart() {
+        findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.GONE);
+        findViewById(R.id.temperatureChart).setVisibility(View.VISIBLE);
+    }
+
+    private void showLoadingScreen() {
+        findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.VISIBLE);
+        findViewById(R.id.temperatureChart).setVisibility(View.GONE);
     }
 }
