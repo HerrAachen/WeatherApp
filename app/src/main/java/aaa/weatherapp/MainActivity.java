@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         try {
             super.onCreate(savedInstanceState);
+            if (!AppState.isInitialized()) {
+                AppState.initialize(this.getApplicationContext());
+            }
             setContentView(R.layout.activity_main);
             weatherApiClient = new WeatherApiClient(this.getApplicationContext());
             refreshWeatherView(null);
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void refreshWeatherView(MenuItem item) {
         showLoadingScreen();
-        weatherApiClient.getOneDayForecast(AppState.cityId, response -> {
+        weatherApiClient.getOneDayForecast(AppState.getCityId(), response -> {
             try {
                 setCityName(response);
                 updateChart(response);

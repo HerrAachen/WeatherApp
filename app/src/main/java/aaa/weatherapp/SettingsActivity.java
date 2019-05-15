@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
         textView.setAdapter(adapter);
         textView.setOnItemClickListener((parent, view, position, id) -> {
             String cityName = adapter.getItem(position);
-            AppState.cityId = city2id.get(cityName);
+            AppState.setCityId(city2id.get(cityName));
         });
     }
     public boolean onCreateOptionsMenu(Menu menu) {
