@@ -17,24 +17,36 @@ public class ChartData {
     List<Double> cloudCoverValues = new ArrayList<>();
     List<Double> humidity = new ArrayList<>();
     List<Double> pressureValues = new ArrayList<>();
+    List<Double> rainValues = new ArrayList<>();
 
     public static ChartData parse(JSONObject response) throws JSONException {
         ChartData chartData = new ChartData();
         JSONArray weatherItems = response.getJSONArray("list");
-        for(int i=0;i<weatherItems.length();i++) {
+        chartData.temperatures = getValues("main", "temp", weatherItems);
+        chartData.cloudCoverValues = getValues("clouds", "all", weatherItems);
+        chartData.humidity = getValues("main", "humidity", weatherItems);
+        chartData.pressureValues = getValues("main", "pressure", weatherItems);
+        chartData.rainValues = getValues("rain", "3h", weatherItems);
+        for (int i = 0; i < weatherItems.length(); i++) {
             JSONObject weatherItem = weatherItems.getJSONObject(i);
-            double temperature = weatherItem.getJSONObject("main").getDouble("temp");
-            double cloudCover = weatherItem.getJSONObject("clouds").getDouble("all");
-            double humidity = weatherItem.getJSONObject("main").getDouble("humidity");
-            double pressure = weatherItem.getJSONObject("main").getDouble("pressure");
             int date = weatherItem.getInt("dt");
-            chartData.temperatures.add(temperature);
-            chartData.cloudCoverValues.add(cloudCover);
-            chartData.humidity.add(humidity);
-            chartData.pressureValues.add(pressure);
             chartData.dates.add(date);
         }
         return chartData;
+    }
+
+    private static List<Double> getValues(String level1, String level2, JSONArray weatherItems) throws JSONException {
+        List<Double> values = new ArrayList<>();
+        for (int i = 0; i < weatherItems.length(); i++) {
+            JSONObject weatherItem = weatherItems.getJSONObject(i);
+            double value = 0;
+            if (weatherItem.has(level1) && weatherItem.getJSONObject(level1).has(level2)) {
+                value = weatherItem.getJSONObject(level1).getDouble(level2);
+            }
+            Log.i(level1, String.valueOf(value));
+            values.add(value);
+        }
+        return values;
     }
 
     public Integer getFirstDate() {
@@ -57,11 +69,31 @@ public class ChartData {
         return getEntries(pressureValues);
     }
 
+    public List<Entry> getRainEntries() {
+        return getEntries(rainValues);
+    }
+
     private List<Entry> getEntries(List<Double> values) {
         List<Entry> entries = new ArrayList<>();
-        for(int i=0;i<dates.size();i++) {
+        for (int i = 0; i < dates.size(); i++) {
             entries.add(new Entry(dates.get(i), values.get(i).floatValue()));
         }
         return entries;
+    }
+
+    public double getMaxRainValue() {
+        double maxValue = Double.MIN_VALUE;
+        for(Double rainValue: rainValues) {
+            maxValue = Math.max(maxValue, rainValue);
+        }
+        return maxValue;
+    }
+
+    public double getMinTemperatureValue() {
+        double minValue = Double.MAX_VALUE;
+        for(Double temperature: temperatures) {
+            minValue = Math.min(minValue, temperature);
+        }
+        return minValue;
     }
 }

@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -20,6 +22,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,31 +46,43 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateChart(JSONObject response) throws JSONException {
         ChartData chartData = ChartData.parse(response);
-        LineChart temperatureChart = findViewById(R.id.temperatureChart);
-        LineDataSet temperatureDataSet = new LineDataSet(chartData.getTemperatureEntries(), "Temperature");
-        temperatureDataSet.setColor(Color.GREEN);
-        temperatureDataSet.setCircleRadius(5);
-        temperatureDataSet.setCircleColor(Color.GREEN);
-        LineDataSet cloudCoverDataSet = new LineDataSet(chartData.getCloudCoverEntries(), "Cloud Cover");
-        cloudCoverDataSet.setColor(Color.GRAY);
-        cloudCoverDataSet.setCircleRadius(4);
-        cloudCoverDataSet.setCircleColor(Color.GRAY);
-        LineDataSet humidityDataSet = new LineDataSet(chartData.getHumidities(), "Humidity");
-        humidityDataSet.setColor(Color.MAGENTA);
-        humidityDataSet.setCircleRadius(2);
-        humidityDataSet.setCircleColor(Color.MAGENTA);
-//        LineDataSet pressureDataSet = new LineDataSet(chartData.getPressures(), "Pressure");
-//        pressureDataSet.setColor(Color.BLACK);
-//        pressureDataSet.setCircleRadius(3);
-//        pressureDataSet.setCircleColor(Color.BLACK);
-        temperatureChart.setData(new LineData(temperatureDataSet, cloudCoverDataSet, humidityDataSet));
-        temperatureChart.getXAxis().setValueFormatter(new ValueFormatter() {
+        LineChart chart = findViewById(R.id.temperatureChart);
+        LineDataSet temperatureDataSet = createLineDataSet(chartData.getTemperatureEntries(), "Temperature °C", Color.GREEN, 5, YAxis.AxisDependency.LEFT);
+        LineDataSet cloudCoverDataSet = createLineDataSet(chartData.getCloudCoverEntries(), "Cloud Cover %", Color.GRAY, 4, YAxis.AxisDependency.LEFT);
+        LineDataSet humidityDataSet = createLineDataSet(chartData.getHumidities(), "Humidity %", Color.MAGENTA, 2, YAxis.AxisDependency.LEFT);
+        LineDataSet rainDataSet = createLineDataSet(chartData.getRainEntries(), "Rain 3h mm", Color.BLUE, 2, YAxis.AxisDependency.RIGHT);
+        chart.setData(new LineData(temperatureDataSet, cloudCoverDataSet, humidityDataSet, rainDataSet));
+        chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float epochSeconds) {
                 return getWeekday((long) epochSeconds);
             }
         });
-        temperatureChart.invalidate();
+        configureRainAxis(chartData, chart.getAxisRight());
+        configureTemperatureAxis(chartData, chart.getAxisLeft());
+        chart.setDescription(null);
+        chart.invalidate();
+    }
+
+    private void configureRainAxis(ChartData chartData, YAxis yAxis) {
+        yAxis.setAxisMinimum(0);
+        yAxis.setAxisMaximum((float) Math.max(8, chartData.getMaxRainValue()));
+        yAxis.setGranularity(2f);
+    }
+
+    private void configureTemperatureAxis(ChartData chartData, YAxis yAxis) {
+        yAxis.setAxisMinimum((float) Math.min(0, chartData.getMinTemperatureValue()));
+        yAxis.setAxisMaximum(105);
+        yAxis.setGranularity(20f);
+    }
+
+    private LineDataSet createLineDataSet(List<Entry> entries, String title, int color, int circleRadius, YAxis.AxisDependency axis) {
+        LineDataSet temperatureDataSet = new LineDataSet(entries, title);
+        temperatureDataSet.setColor(color);
+        temperatureDataSet.setCircleRadius(circleRadius);
+        temperatureDataSet.setCircleColor(color);
+        temperatureDataSet.setAxisDependency(axis);
+        return temperatureDataSet;
     }
 
     private String getWeekday(long epochSeconds) {
