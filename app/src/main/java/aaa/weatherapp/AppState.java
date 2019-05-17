@@ -3,6 +3,8 @@ package aaa.weatherapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 public class AppState {
@@ -12,6 +14,7 @@ public class AppState {
     private static String cityId;
     public static Map<String, String> cityList;
     private static Context context;
+    private static Date lastUpdated;
 
     public static void initialize(Context applicationContext) {
         context = applicationContext;
@@ -33,5 +36,13 @@ public class AppState {
 
     public static String getCityId() {
         return cityId;
+    }
+
+    public static Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public static void setLastUpdatedToNow() {
+        lastUpdated = new Date();
     }
 }

@@ -5,4 +5,5 @@
     <string name="country">Country</string>
     <string name="refresh">Refresh</string>
     <string name="done">Done</string>
+    <string name="lastUpdated">Last updated: </string>
 </resources>

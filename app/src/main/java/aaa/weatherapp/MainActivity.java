@@ -109,9 +109,11 @@ public class MainActivity extends AppCompatActivity {
         showLoadingScreen();
         weatherApiClient.getOneDayForecast(AppState.getCityId(), response -> {
             try {
+                AppState.setLastUpdatedToNow();
                 setCityName(response);
                 updateChart(response);
                 showChart();
+                showLastUpdatedLabel();
             } catch (JSONException e) {
                 showError(e.getMessage());
                 e.printStackTrace();
@@ -119,23 +121,38 @@ public class MainActivity extends AppCompatActivity {
         }, errorMessage -> showError("Error: " + errorMessage));
     }
 
+    private void showLastUpdatedLabel() {
+        findViewById(R.id.lastUpdated).setVisibility(View.VISIBLE);
+        findViewById(R.id.lastUpdatedDateTime).setVisibility(View.VISIBLE);
+        SimpleDateFormat lastUpdatedDateFormat = new SimpleDateFormat("E hh:mm a");
+        ((TextView)findViewById(R.id.lastUpdatedDateTime)).setText(lastUpdatedDateFormat.format(AppState.getLastUpdated()));
+    }
+
     private void showChart() {
         findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.GONE);
         findViewById(R.id.temperatureChart).setVisibility(View.VISIBLE);
         findViewById(R.id.errorText).setVisibility(View.GONE);
+        showLastUpdatedLabel();
     }
 
     private void showLoadingScreen() {
         findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.VISIBLE);
         findViewById(R.id.temperatureChart).setVisibility(View.GONE);
         findViewById(R.id.errorText).setVisibility(View.GONE);
+        hideLastUpdatedLabel();
     }
 
     private void showError(String errorText) {
         findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.GONE);
         findViewById(R.id.temperatureChart).setVisibility(View.GONE);
-        TextView errorTextView = (TextView)findViewById(R.id.errorText);
+        TextView errorTextView = findViewById(R.id.errorText);
         errorTextView.setVisibility(View.VISIBLE);
         errorTextView.setText(errorText);
+        hideLastUpdatedLabel();
+    }
+
+    private void hideLastUpdatedLabel() {
+        findViewById(R.id.lastUpdated).setVisibility(View.GONE);
+        findViewById(R.id.lastUpdatedDateTime).setVisibility(View.GONE);
     }
 }
