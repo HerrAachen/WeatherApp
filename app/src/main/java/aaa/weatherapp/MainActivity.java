@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureRainAxis(ChartData chartData, YAxis yAxis) {
         yAxis.setAxisMinimum(0);
-        yAxis.setAxisMaximum((float) Math.max(8, chartData.getMaxRainValue()));
+        yAxis.setAxisMaximum((float) Math.max(4, chartData.getMaxRainValue()));
         yAxis.setGranularity(2f);
     }
 
