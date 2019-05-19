@@ -18,7 +18,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,6 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private WeatherApiClient weatherApiClient;
+    private static SimpleDateFormat lastUpdatedDateFormat = new SimpleDateFormat("E hh:mm a");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -47,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void updateChart(JSONObject response) throws JSONException {
-        ChartData chartData = ChartData.parse(response);
+    private void updateChart(ChartData chartData) {
         LineChart chart = findViewById(R.id.temperatureChart);
         LineDataSet temperatureDataSet = createLineDataSet(chartData.getTemperatureEntries(), "Temperature °C", Color.GREEN, 5, YAxis.AxisDependency.LEFT);
         LineDataSet cloudCoverDataSet = createLineDataSet(chartData.getCloudCoverEntries(), "Cloud Cover %", Color.GRAY, 4, YAxis.AxisDependency.LEFT);
@@ -94,10 +93,8 @@ public class MainActivity extends AppCompatActivity {
         return weekdayFormat.format(new Date(epochMilliseconds));
     }
 
-    private void setCityName(JSONObject response) throws JSONException {
-        String cityName = response.getJSONObject("city").getString("name");
-        String country = response.getJSONObject("city").getString("country");
-        setTitle(cityName + " (" + country + ")");
+    private void setCityName(ChartData chartData) throws JSONException {
+        setTitle(chartData.cityName + " (" + chartData.country + ")");
     }
 
     public void openSettingsView(MenuItem item) {
@@ -107,13 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void refreshWeatherView(MenuItem item) {
         showLoadingScreen();
-        weatherApiClient.getOneDayForecast(AppState.getCityId(), response -> {
+        weatherApiClient.getOneDayForecast(AppState.getCityId(), chartData -> {
             try {
-                AppState.setLastUpdatedToNow();
-                setCityName(response);
-                updateChart(response);
-                showChart();
-                showLastUpdatedLabel();
+                setCityName(chartData);
+                updateChart(chartData);
+                showChart(chartData);
+                showLastUpdatedLabel(chartData);
             } catch (JSONException e) {
                 showError(e.getMessage());
                 e.printStackTrace();
@@ -121,18 +117,17 @@ public class MainActivity extends AppCompatActivity {
         }, errorMessage -> showError("Error: " + errorMessage));
     }
 
-    private void showLastUpdatedLabel() {
+    private void showLastUpdatedLabel(ChartData chartData) {
         findViewById(R.id.lastUpdated).setVisibility(View.VISIBLE);
         findViewById(R.id.lastUpdatedDateTime).setVisibility(View.VISIBLE);
-        SimpleDateFormat lastUpdatedDateFormat = new SimpleDateFormat("E hh:mm a");
-        ((TextView)findViewById(R.id.lastUpdatedDateTime)).setText(lastUpdatedDateFormat.format(AppState.getLastUpdated()));
+        ((TextView)findViewById(R.id.lastUpdatedDateTime)).setText(lastUpdatedDateFormat.format(chartData.getLastUpdated()));
     }
 
-    private void showChart() {
+    private void showChart(ChartData chartData) {
         findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.GONE);
         findViewById(R.id.temperatureChart).setVisibility(View.VISIBLE);
         findViewById(R.id.errorText).setVisibility(View.GONE);
-        showLastUpdatedLabel();
+        showLastUpdatedLabel(chartData);
     }
 
     private void showLoadingScreen() {

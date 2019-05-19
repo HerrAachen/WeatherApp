@@ -9,15 +9,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChartData {
+    String cityName;
+    String country;
     List<Integer> dates = new ArrayList<>();
     List<Double> temperatures = new ArrayList<>();
     List<Double> cloudCoverValues = new ArrayList<>();
     List<Double> humidity = new ArrayList<>();
     List<Double> pressureValues = new ArrayList<>();
     List<Double> rainValues = new ArrayList<>();
+    Date lastUpdated;
 
     public static ChartData parse(JSONObject response) throws JSONException {
         ChartData chartData = new ChartData();
@@ -32,6 +36,8 @@ public class ChartData {
             int date = weatherItem.getInt("dt");
             chartData.dates.add(date);
         }
+        chartData.cityName = response.getJSONObject("city").getString("name");
+        chartData.country = response.getJSONObject("city").getString("country");
         return chartData;
     }
 
@@ -95,5 +101,13 @@ public class ChartData {
             minValue = Math.min(minValue, temperature);
         }
         return minValue;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdatedToNow() {
+        lastUpdated = new Date();
     }
 }

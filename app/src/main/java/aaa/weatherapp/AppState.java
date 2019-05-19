@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 
+import io.paperdb.Paper;
+
 public class AppState {
     private static final String VANCOUVER_ID = "6173331";
     private static final String CITY_ID_KEY = "cityId";
@@ -14,12 +16,13 @@ public class AppState {
     private static String cityId;
     public static Map<String, String> cityList;
     private static Context context;
-    private static Date lastUpdated;
+    private static ChartData chartData;
 
     public static void initialize(Context applicationContext) {
         context = applicationContext;
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, 0);
         cityId = preferences.getString(CITY_ID_KEY, VANCOUVER_ID);
+        Paper.init(applicationContext);
     }
 
     public static boolean isInitialized() {
@@ -38,11 +41,11 @@ public class AppState {
         return cityId;
     }
 
-    public static Date getLastUpdated() {
-        return lastUpdated;
+    public static void setChartData(ChartData inputChartData) {
+        chartData = inputChartData;
     }
 
-    public static void setLastUpdatedToNow() {
-        lastUpdated = new Date();
+    public static ChartData getChartData() {
+        return chartData;
     }
 }

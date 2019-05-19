@@ -10,10 +10,14 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import io.paperdb.Paper;
 
 public class WeatherApiClient {
 
+    public static final String CHART_DATA_STORAGE_KEY = "chartData";
     private final Context context;
     private final String apiKey;
     private static final String OPEN_WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast";
@@ -23,16 +27,37 @@ public class WeatherApiClient {
         apiKey = BuildConfig.apiKey;
     }
 
-    public void getOneDayForecast(String cityId, Response.Listener<JSONObject> callbackFunction, ErrorHandler errorHandler) {
+    public void getOneDayForecast(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
         int resultLimit = 12;
         String url = getOpenWeatherUrl(cityId, resultLimit);
         RequestQueue queue = Volley.newRequestQueue(context);
-        queue.add(new JsonObjectRequest(Request.Method.GET, url, null, callbackFunction, error -> {
+        queue.add(new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                ChartData chartData = ChartData.parse(response);
+                chartData.setLastUpdatedToNow();
+                AppState.setChartData(chartData);
+                Paper.book().write(CHART_DATA_STORAGE_KEY, chartData);
+                callbackFunction.onResponse(chartData);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }, error -> {
             String errorString = error.toString();
             if (error.networkResponse != null) {
                 errorString = new String(error.networkResponse.data);
             }
             if (error instanceof NoConnectionError) {
+                if (AppState.getChartData() != null) {
+                    callbackFunction.onResponse(AppState.getChartData());
+                    return;
+                } else {
+                    ChartData chartData = Paper.book().read(CHART_DATA_STORAGE_KEY);
+                    if (chartData != null) {
+                        callbackFunction.onResponse(chartData);
+                        return;
+                    }
+                }
                 errorString = "Not connected to the internet";
             }
             Log.e("Open Weather API Error", errorString);
