@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private WeatherApiClient weatherApiClient;
     private static SimpleDateFormat lastUpdatedDateFormat = new SimpleDateFormat("E hh:mm a");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             showError("An error occurred: " + e.getMessage());
         }
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_settings, menu);
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         configureRainAxis(chartData, chart.getAxisRight());
         configureTemperatureAxis(chartData, chart.getAxisLeft());
         chart.setDescription(null);
+        chart.setOnChartGestureListener(new ChartGestureListener(() -> Log.i("Event", "Swipe left from outside")));
         chart.invalidate();
     }
 
@@ -120,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     private void showLastUpdatedLabel(ChartData chartData) {
         findViewById(R.id.lastUpdated).setVisibility(View.VISIBLE);
         findViewById(R.id.lastUpdatedDateTime).setVisibility(View.VISIBLE);
-        ((TextView)findViewById(R.id.lastUpdatedDateTime)).setText(lastUpdatedDateFormat.format(chartData.getLastUpdated()));
+        ((TextView) findViewById(R.id.lastUpdatedDateTime)).setText(lastUpdatedDateFormat.format(chartData.getLastUpdated()));
     }
 
     private void showChart(ChartData chartData) {
