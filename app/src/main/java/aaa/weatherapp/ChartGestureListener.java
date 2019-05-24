@@ -1,19 +1,19 @@
 package aaa.weatherapp;
 
-
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 
-import java.util.concurrent.Callable;
-
 public class ChartGestureListener implements OnChartGestureListener {
     private final Runnable swipeLeftCallback;
-    public ChartGestureListener (Runnable swipeLeftCallback) {
+    private final Runnable swipeRightCallback;
+
+    public ChartGestureListener(Runnable swipeLeftCallback, Runnable swipeRightCallback) {
         this.swipeLeftCallback = swipeLeftCallback;
+        this.swipeRightCallback = swipeRightCallback;
     }
+
     @Override
     public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
 
@@ -42,15 +42,10 @@ public class ChartGestureListener implements OnChartGestureListener {
     @Override
     public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
         if (isSwipeLeft(me1, me2)) {
-//            Log.i("Event", "Swipe Left");
-            try {
-                swipeLeftCallback.run();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            swipeLeftCallback.run();
         }
         if (isSwipeRight(me1, me2)) {
-//            Log.i("Event", "Swipe Right");
+            swipeRightCallback.run();
         }
     }
 

@@ -28,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     private WeatherApiClient weatherApiClient;
     private static SimpleDateFormat lastUpdatedDateFormat = new SimpleDateFormat("E hh:mm a");
+    private ChartView viewToShow = ChartView.DAY;
+
+    private enum ChartView {
+        DAY,
+        FIVE_DAYS
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +73,19 @@ public class MainActivity extends AppCompatActivity {
         configureRainAxis(chartData, chart.getAxisRight());
         configureTemperatureAxis(chartData, chart.getAxisLeft());
         chart.setDescription(null);
-        chart.setOnChartGestureListener(new ChartGestureListener(() -> Log.i("Event", "Swipe left from outside")));
+        Runnable swipeRightAction = () -> {
+            if (viewToShow != ChartView.DAY) {
+                viewToShow = ChartView.DAY;
+                refreshWeatherView(null);
+            }
+        };
+        Runnable swipeLeftAction = () -> {
+            if (viewToShow != ChartView.FIVE_DAYS) {
+                viewToShow = ChartView.FIVE_DAYS;
+                refreshWeatherView(null);
+            }
+        };
+        chart.setOnChartGestureListener(new ChartGestureListener(swipeLeftAction, swipeRightAction));
         chart.invalidate();
     }
 
@@ -111,7 +129,13 @@ public class MainActivity extends AppCompatActivity {
         showLoadingScreen();
         weatherApiClient.getAndCacheForecast(AppState.getCityId(), fullChartData -> {
             try {
-                ChartData chartData = fullChartData.getSubSet(9);
+                ChartData chartData;
+                if (viewToShow == ChartView.DAY) {
+                    chartData = fullChartData.getSubSet(9);
+                } else {
+                    chartData = fullChartData;
+                }
+
                 setCityName(chartData);
                 updateChart(chartData);
                 showChart(chartData);
