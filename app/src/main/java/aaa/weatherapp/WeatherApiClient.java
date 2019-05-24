@@ -7,6 +7,7 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -27,9 +28,8 @@ public class WeatherApiClient {
         apiKey = BuildConfig.apiKey;
     }
 
-    public void getOneDayForecast(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
-        int resultLimit = 12;
-        String url = getOpenWeatherUrl(cityId, resultLimit);
+    public void getAndCacheForecast(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
+        String url = getOpenWeatherUrl(cityId);
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
@@ -47,7 +47,7 @@ public class WeatherApiClient {
             if (error.networkResponse != null) {
                 errorString = new String(error.networkResponse.data);
             }
-            if (error instanceof NoConnectionError) {
+            if (error instanceof NoConnectionError || error instanceof TimeoutError) {
                 if (AppState.getChartData() != null) {
                     callbackFunction.onResponse(AppState.getChartData());
                     return;
@@ -65,7 +65,7 @@ public class WeatherApiClient {
         }));
     }
 
-    private String getOpenWeatherUrl(String cityId, int resultLimit) {
-        return OPEN_WEATHER_BASE_URL + "?id=" + cityId + "&units=metric&APPID=" + apiKey + "&cnt=" + resultLimit;
+    private String getOpenWeatherUrl(String cityId) {
+        return OPEN_WEATHER_BASE_URL + "?id=" + cityId + "&units=metric&APPID=" + apiKey;
     }
 }

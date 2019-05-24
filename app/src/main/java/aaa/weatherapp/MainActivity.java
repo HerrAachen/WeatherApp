@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_settings, menu);
@@ -108,8 +109,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void refreshWeatherView(MenuItem item) {
         showLoadingScreen();
-        weatherApiClient.getOneDayForecast(AppState.getCityId(), chartData -> {
+        weatherApiClient.getAndCacheForecast(AppState.getCityId(), fullChartData -> {
             try {
+                ChartData chartData = fullChartData.getSubSet(9);
                 setCityName(chartData);
                 updateChart(chartData);
                 showChart(chartData);

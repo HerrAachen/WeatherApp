@@ -41,6 +41,20 @@ public class ChartData {
         return chartData;
     }
 
+    public ChartData getSubSet(int dataPoints) {
+        ChartData chartData = new ChartData();
+        chartData.temperatures = this.temperatures.subList(0, dataPoints);
+        chartData.cloudCoverValues = this.cloudCoverValues.subList(0, dataPoints);
+        chartData.humidity = this.humidity.subList(0, dataPoints);
+        chartData.pressureValues = this.pressureValues.subList(0, dataPoints);
+        chartData.rainValues = this.rainValues.subList(0, dataPoints);
+        chartData.dates = this.dates.subList(0, dataPoints);
+        chartData.cityName = this.cityName;
+        chartData.country = this.country;
+        chartData.lastUpdated = this.lastUpdated;
+        return chartData;
+    }
+
     private static List<Double> getValues(String level1, String level2, JSONArray weatherItems) throws JSONException {
         List<Double> values = new ArrayList<>();
         for (int i = 0; i < weatherItems.length(); i++) {
