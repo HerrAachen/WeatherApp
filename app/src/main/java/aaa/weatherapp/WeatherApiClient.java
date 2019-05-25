@@ -12,7 +12,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+
+import java.util.Date;
 
 import io.paperdb.Paper;
 
@@ -29,6 +30,15 @@ public class WeatherApiClient {
     }
 
     public void getAndCacheForecast(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
+        boolean shouldGetUpdateFromServer = isLastUpdateTooOld();
+        if (shouldGetUpdateFromServer) {
+            getFromServerOrAppStateOrFile(cityId, callbackFunction, errorHandler);
+        }
+
+        callbackFunction.onResponse(getFromAppStateOrFile());
+    }
+
+    private void getFromServerOrAppStateOrFile(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
         String url = getOpenWeatherUrl(cityId);
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -40,7 +50,7 @@ public class WeatherApiClient {
                 callbackFunction.onResponse(chartData);
             } catch (JSONException e) {
                 e.printStackTrace();
-                throw new RuntimeException(e);
+                errorHandler.handleError(e.getMessage());
             }
         }, error -> {
             String errorString = error.toString();
@@ -48,21 +58,31 @@ public class WeatherApiClient {
                 errorString = new String(error.networkResponse.data);
             }
             if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-                if (AppState.getChartData() != null) {
-                    callbackFunction.onResponse(AppState.getChartData());
+                ChartData chartData = getFromAppStateOrFile();
+                if (chartData != null) {
+                    callbackFunction.onResponse(chartData);
                     return;
-                } else {
-                    ChartData chartData = Paper.book().read(CHART_DATA_STORAGE_KEY);
-                    if (chartData != null) {
-                        callbackFunction.onResponse(chartData);
-                        return;
-                    }
                 }
                 errorString = "Not connected to the internet";
             }
             Log.e("Open Weather API Error", errorString);
             errorHandler.handleError(errorString);
         }));
+    }
+
+    private ChartData getFromAppStateOrFile() {
+        if (AppState.getChartData() != null) {
+            return AppState.getChartData();
+        }
+        return Paper.book().read(CHART_DATA_STORAGE_KEY);
+    }
+
+    private boolean isLastUpdateTooOld() {
+        ChartData cachedChartData = getFromAppStateOrFile();
+        long timeoutMinutes = 15;
+        long timeoutMilliseconds = timeoutMinutes * 60 * 1000;
+        Date timeoutDate = new Date(System.currentTimeMillis() - timeoutMilliseconds);
+        return cachedChartData == null || cachedChartData.getLastUpdated().before(timeoutDate);
     }
 
     private String getOpenWeatherUrl(String cityId) {
