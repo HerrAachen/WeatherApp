@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 return getWeekday((long) epochSeconds);
             }
         });
+        chart.getXAxis().setLabelRotationAngle(-15);
         configureRainAxis(chartData, chart.getAxisRight());
         configureTemperatureAxis(chartData, chart.getAxisLeft());
         chart.setDescription(null);
