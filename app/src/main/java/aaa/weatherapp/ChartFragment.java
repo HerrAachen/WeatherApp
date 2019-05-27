@@ -1,13 +1,13 @@
 package aaa.weatherapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +20,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-
-import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,36 +42,19 @@ public class ChartFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String VIEW_TO_SHOW_PARAM = "viewToShow";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
     public ChartFragment() {
 
     }
-    public ChartFragment(ChartView viewToShow) {
-        this.viewToShow = viewToShow;
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChartFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChartFragment newInstance(String param1, String param2) {
+    public static ChartFragment newInstance(ChartView viewToShow) {
         ChartFragment fragment = new ChartFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(VIEW_TO_SHOW_PARAM, viewToShow.toString());
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,6 +62,7 @@ public class ChartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewToShow = ChartView.valueOf(getArguments().getString(VIEW_TO_SHOW_PARAM));
         weatherApiClient = new WeatherApiClient(getActivity().getApplicationContext());
     }
 
