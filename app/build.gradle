@@ -28,8 +28,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }    
-	
-	dexOptions {
+
+    dexOptions {
         // Skip pre-dexing on Travis CI
         preDexLibraries = !travisBuild
     }
