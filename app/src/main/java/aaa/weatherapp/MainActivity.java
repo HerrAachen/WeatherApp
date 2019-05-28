@@ -2,6 +2,7 @@ package aaa.weatherapp;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements ChartFragment.OnF
         chartPagerAdapter = new ChartPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(chartPagerAdapter);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
         } catch (Exception e) {
             Log.e("Main Activity", e.getMessage());
         }
