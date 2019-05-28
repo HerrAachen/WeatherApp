@@ -30,7 +30,7 @@ public class WeatherApiClient {
     }
 
     public void getAndCacheForecast(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
-        boolean shouldGetUpdateFromServer = isLastUpdateTooOld();
+        boolean shouldGetUpdateFromServer = shouldRefreshFromServer(cityId);
         if (shouldGetUpdateFromServer) {
             getFromServerOrAppStateOrFile(cityId, callbackFunction, errorHandler);
         }
@@ -77,8 +77,12 @@ public class WeatherApiClient {
         return Paper.book().read(CHART_DATA_STORAGE_KEY);
     }
 
-    private boolean isLastUpdateTooOld() {
+    private boolean shouldRefreshFromServer(String cityId) {
         ChartData cachedChartData = getFromAppStateOrFile();
+        return isLastUpdateTooOld(cachedChartData) || cityId != cachedChartData.cityId;
+    }
+
+    private boolean isLastUpdateTooOld(ChartData cachedChartData) {
         long timeoutMinutes = 15;
         long timeoutMilliseconds = timeoutMinutes * 60 * 1000;
         Date timeoutDate = new Date(System.currentTimeMillis() - timeoutMilliseconds);

@@ -3,8 +3,6 @@ package aaa.weatherapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Map;
 
 import io.paperdb.Paper;

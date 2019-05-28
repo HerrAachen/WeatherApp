@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ChartData {
+    String cityId;
     String cityName;
     String country;
     List<Integer> dates = new ArrayList<>();
@@ -36,6 +37,7 @@ public class ChartData {
             int date = weatherItem.getInt("dt");
             chartData.dates.add(date);
         }
+        chartData.cityId = response.getJSONObject("city").getString("id");
         chartData.cityName = response.getJSONObject("city").getString("name");
         chartData.country = response.getJSONObject("city").getString("country");
         return chartData;
@@ -49,6 +51,7 @@ public class ChartData {
         chartData.pressureValues = this.pressureValues.subList(0, dataPoints);
         chartData.rainValues = this.rainValues.subList(0, dataPoints);
         chartData.dates = this.dates.subList(0, dataPoints);
+        chartData.cityId = this.cityId;
         chartData.cityName = this.cityName;
         chartData.country = this.country;
         chartData.lastUpdated = this.lastUpdated;
