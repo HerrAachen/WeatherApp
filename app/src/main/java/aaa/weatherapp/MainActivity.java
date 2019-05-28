@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements ChartFragment.OnF
                 AppState.initialize(this.getApplicationContext());
             }
             setContentView(R.layout.activity_main);
-            setCityName();
 
         chartPagerAdapter = new ChartPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.pager);
@@ -43,12 +42,6 @@ public class MainActivity extends AppCompatActivity implements ChartFragment.OnF
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_settings, menu);
         return true;
-    }
-
-    private void setCityName() throws JSONException {
-        if (AppState.getChartData() != null) {
-            setTitle(AppState.getChartData().cityName + " (" + AppState.getChartData().country + ")");
-        }
     }
 
     public void openSettingsView(MenuItem item) {

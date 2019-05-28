@@ -21,6 +21,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import org.json.JSONException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -192,11 +194,16 @@ public class ChartFragment extends Fragment {
                 updateChart(chartData);
                 showChart(chartData);
                 showLastUpdatedLabel(chartData);
+                setCityName(chartData);
             } catch (Exception e) {
                 showError(e.getMessage());
                 e.printStackTrace();
             }
         }, errorMessage -> showError("Error: " + errorMessage));
+    }
+
+    private void setCityName(ChartData chartData) {
+        getActivity().setTitle(chartData.cityName + " (" + chartData.country + ")");
     }
 
     private void showLastUpdatedLabel(ChartData chartData) {
