@@ -12,7 +12,7 @@ public class AppState {
     private static final String CITY_ID_KEY = "cityId";
     private static final String PREFERENCES_KEY = "Preferences";
     private static String cityId;
-    public static Map<String, String> cityList;
+    public static Map<String, Location> cityList;
     private static Context context;
     private static ChartData chartData;
 

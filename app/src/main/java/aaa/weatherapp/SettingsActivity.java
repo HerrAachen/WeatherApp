@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private Map<String, String> city2id;
+    private Map<String, Location> name2Location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +25,14 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         setTitle(getString(R.string.settings));
 
-        city2id = readCitiesFromFileOrCache();
+        name2Location = readCitiesFromFileOrCache();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, city2id.keySet().toArray(new String[]{}));
+                android.R.layout.simple_dropdown_item_1line, name2Location.keySet().toArray(new String[]{}));
         AutoCompleteTextView textView = findViewById(R.id.cityDropdown);
         textView.setAdapter(adapter);
         textView.setOnItemClickListener((parent, view, position, id) -> {
             String cityName = adapter.getItem(position);
-            AppState.setCityId(city2id.get(cityName));
+            AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
         });
     }
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,31 +41,35 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
-    private Map<String, String> readCitiesFromFileOrCache() {
+    private Map<String, Location> readCitiesFromFileOrCache() {
         if (AppState.cityList == null) {
             AppState.cityList = readCitiesFromFile();
         }
         return AppState.cityList;
     }
 
-    private Map<String, String> readCitiesFromFile() {
+    private Map<String, Location> readCitiesFromFile() {
 
-        Map<String, String> id2city = new HashMap<>();
+        Map<String, Location> nameToLocation = new HashMap<>();
         BufferedReader cityReader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.cities)));
 
         try {
             String line = cityReader.readLine();
             do {
-                String[] parts = line.split("=");
+                String[] parts = line.split(";");
                 String id = parts[0];
                 String cityName = parts[1];
-                id2city.put(cityName, id);
+                String countryCode = parts[2];
+                String latitude = parts[3];
+                String longitude = parts[4];
+                Location location = new Location(cityName, countryCode, id, latitude, longitude);
+                nameToLocation.put(location.getDisplayName(), location);
                 line = cityReader.readLine();
             } while (line != null);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return id2city;
+        return nameToLocation;
     }
 
     public void navigateToMainActivity(MenuItem item) {
