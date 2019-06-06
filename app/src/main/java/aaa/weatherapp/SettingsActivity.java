@@ -3,11 +3,14 @@ package aaa.weatherapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,8 +36,24 @@ public class SettingsActivity extends AppCompatActivity {
         textView.setOnItemClickListener((parent, view, position, id) -> {
             String cityName = adapter.getItem(position);
             AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
+            updateMapsLink(cityName);
         });
     }
+
+    private void updateMapsLink(String cityName) {
+        Location location = name2Location.get(cityName);
+        TextView locationMapsLinkView = findViewById(R.id.locationMapsLink);
+        locationMapsLinkView.setText(Html.fromHtml(createGoogleMapsLink(location)));
+        locationMapsLinkView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    private String createGoogleMapsLink(Location location) {
+        return "<a href=\"https://www.google.com/maps/search/?api=1&query=" +
+                location.getLatitude() + "," +
+                location.getLongitude() +
+                "\">View " + location.getName() + " in Maps</a>";
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings_actions, menu);
