@@ -1,6 +1,7 @@
 package aaa.weatherapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -8,6 +9,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -27,17 +29,21 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         setTitle(getString(R.string.settings));
+        showLoadingIcon();
 
-        name2Location = readCitiesFromFileOrCache();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, name2Location.keySet().toArray(new String[]{}));
-        AutoCompleteTextView textView = findViewById(R.id.cityDropdown);
-        textView.setAdapter(adapter);
-        textView.setOnItemClickListener((parent, view, position, id) -> {
-            String cityName = adapter.getItem(position);
-            AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
-            updateMapsLink(cityName);
-        });
+        new CityLoader(this).execute();
+    }
+
+    private void showLoadingIcon() {
+        findViewById(R.id.settingsActivityLoadingIcon).setVisibility(View.VISIBLE);
+        findViewById(R.id.cityDropdown).setVisibility(View.INVISIBLE);
+        findViewById(R.id.cityText).setVisibility(View.INVISIBLE);
+    }
+
+    private void showSettings() {
+        findViewById(R.id.settingsActivityLoadingIcon).setVisibility(View.GONE);
+        findViewById(R.id.cityDropdown).setVisibility(View.VISIBLE);
+        findViewById(R.id.cityText).setVisibility(View.VISIBLE);
     }
 
     private void updateMapsLink(String cityName) {
@@ -94,5 +100,33 @@ public class SettingsActivity extends AppCompatActivity {
     public void navigateToMainActivity(MenuItem item) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private class CityLoader extends AsyncTask<Void, Integer, Void> {
+
+        private final SettingsActivity parentActivity;
+        public CityLoader(SettingsActivity parentActivity) {
+            this.parentActivity = parentActivity;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            name2Location = readCitiesFromFileOrCache();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(parentActivity,
+                    android.R.layout.simple_dropdown_item_1line, name2Location.keySet().toArray(new String[]{}));
+            AutoCompleteTextView textView = findViewById(R.id.cityDropdown);
+            textView.setAdapter(adapter);
+            textView.setOnItemClickListener((parent, view, position, id) -> {
+                String cityName = adapter.getItem(position);
+                AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
+                updateMapsLink(cityName);
+            });
+            showSettings();
+        }
     }
 }
