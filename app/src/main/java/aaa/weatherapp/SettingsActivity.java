@@ -102,7 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private class CityLoader extends AsyncTask<Void, Integer, Void> {
+    private class CityLoader extends AsyncTask<Void, Integer, String> {
 
         private final SettingsActivity parentActivity;
         public CityLoader(SettingsActivity parentActivity) {
@@ -110,15 +110,26 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground(Void... voids) {
             name2Location = readCitiesFromFileOrCache();
-            return null;
+            String cityId = AppState.getCityId();
+            String cityLabel = null;
+            System.out.println("City ID:" + cityId);
+            for(Location loc: name2Location.values()) {
+                if (loc.getOpenWeatherId().equals(cityId)) {
+                    System.out.println("Found " + loc.getName());
+                    cityLabel = loc.getDisplayName();
+                }
+            }
+            System.out.println("City Label:" + cityLabel);
+            return cityLabel;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(String cityDisplayName) {
+            String[] dropdownOptions = name2Location.keySet().toArray(new String[]{});
             ArrayAdapter<String> adapter = new ArrayAdapter<>(parentActivity,
-                    android.R.layout.simple_dropdown_item_1line, name2Location.keySet().toArray(new String[]{}));
+                    android.R.layout.simple_dropdown_item_1line, dropdownOptions);
             AutoCompleteTextView textView = findViewById(R.id.cityDropdown);
             textView.setAdapter(adapter);
             textView.setOnItemClickListener((parent, view, position, id) -> {
@@ -126,6 +137,8 @@ public class SettingsActivity extends AppCompatActivity {
                 AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
                 updateMapsLink(cityName);
             });
+            textView.setText(cityDisplayName);
+            updateMapsLink(cityDisplayName);
             showSettings();
         }
     }
