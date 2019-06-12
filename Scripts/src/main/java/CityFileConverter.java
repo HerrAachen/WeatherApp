@@ -15,31 +15,45 @@ public class CityFileConverter {
     public static void main(String[] args) {
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader("openweathermap.city.list.json");
-             FileWriter writer = new FileWriter("..\\app\\src\\main\\res\\raw\\cities.properties"))
-        {
-            Set<String> uniqueCities = new HashSet<>();
+             FileWriter writer = new FileWriter("..\\app\\src\\main\\res\\raw\\cities.properties")) {
             Map<Long, String> id2CityName = new HashMap<>();
+            Map<String, Integer> cityNameToCount = new HashMap<>();
             JSONArray cities = (JSONArray) jsonParser.parse(reader);
-            cities.forEach( cityJson -> {
+            cities.forEach(cityJson -> {
                 JSONObject cityJsonObject = (JSONObject) cityJson;
                 String cityName = (String) cityJsonObject.get("name");
-                String cityCountry = (String) cityJsonObject.get("country");
+                String country = (String) cityJsonObject.get("country");
                 long cityId = (long) cityJsonObject.get("id");
-                String lat = getNumberAsString(((JSONObject)cityJsonObject.get("coord")).get("lat"));
-                String longitude = getNumberAsString(((JSONObject)cityJsonObject.get("coord")).get("lon"));
-                if (uniqueCities.add(cityName + ", " + cityCountry)) {
-                    id2CityName.put(cityId, cityName + ", " + cityCountry);
-                    try {
-                        writer.write(cityId + ";" + cityName + ";" + cityCountry + ";" + lat + ";" + longitude + "\r\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                String lat = getNumberAsString(((JSONObject) cityJsonObject.get("coord")).get("lat"));
+                String longitude = getNumberAsString(((JSONObject) cityJsonObject.get("coord")).get("lon"));
+                updateCityCount(cityNameToCount, getCityDisplayName(cityName, country));
+                id2CityName.put(cityId, getCityDisplayName(cityName, country));
+                try {
+                    Integer count = cityNameToCount.get(getCityDisplayName(cityName, country));
+                    String cityNameForFile = cityName + (count > 1 ? "_" + count : "");
+                    writer.write(cityId + ";" + cityNameForFile + ";" + country + ";" + lat + ";" + longitude + "\r\n");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } );
+            });
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void updateCityCount(Map<String, Integer> cityNameToCount, String cityDisplayName) {
+        Integer cityCount = cityNameToCount.get(cityDisplayName);
+        if (cityCount == null) {
+            cityCount = 0;
+        }
+        cityCount++;
+        cityNameToCount.put(cityDisplayName, cityCount);
+    }
+
+    private static String getCityDisplayName(String cityName, String cityCountry) {
+        return cityName + ", " + cityCountry;
     }
 
     private static String getNumberAsString(Object numberObject) {
