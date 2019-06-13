@@ -66,7 +66,6 @@ public class ChartData {
             if (weatherItem.has(level1) && weatherItem.getJSONObject(level1).has(level2)) {
                 value = weatherItem.getJSONObject(level1).getDouble(level2);
             }
-            Log.i(level1, String.valueOf(value));
             values.add(value);
         }
         return values;

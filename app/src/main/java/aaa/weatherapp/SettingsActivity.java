@@ -12,17 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class SettingsActivity extends AppCompatActivity {
 
     private Map<String, Location> name2Location;
+    private String[] countries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +43,16 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.settingsActivityLoadingIcon).setVisibility(View.VISIBLE);
         findViewById(R.id.cityDropdown).setVisibility(View.INVISIBLE);
         findViewById(R.id.cityText).setVisibility(View.INVISIBLE);
+        findViewById(R.id.countryText).setVisibility(View.INVISIBLE);
+        findViewById(R.id.countryDropdown).setVisibility(View.INVISIBLE);
     }
 
     private void showSettings() {
         findViewById(R.id.settingsActivityLoadingIcon).setVisibility(View.GONE);
         findViewById(R.id.cityDropdown).setVisibility(View.VISIBLE);
         findViewById(R.id.cityText).setVisibility(View.VISIBLE);
+        findViewById(R.id.countryText).setVisibility(View.VISIBLE);
+        findViewById(R.id.countryDropdown).setVisibility(View.VISIBLE);
     }
 
     private void updateMapsLink(String cityName) {
@@ -67,10 +76,36 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private Map<String, Location> readCitiesFromFileOrCache() {
-        if (AppState.cityList == null) {
-            AppState.cityList = readCitiesFromFile();
+        if (name2Location == null) {
+            name2Location = readCitiesFromFile();
         }
-        return AppState.cityList;
+        return name2Location;
+    }
+
+    private String[] readCountriesFromFileOrCache() {
+        if (countries != null) {
+            return countries;
+        }
+        return readCountriesFromFile();
+    }
+
+    private String[] readCountriesFromFile() {
+        Set<String> countries = new HashSet<>();
+        BufferedReader cityReader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.cities)));
+        try {
+            String line = cityReader.readLine();
+            do {
+                String[] parts = line.split(";");
+                String countryCode = parts[2];
+                countries.add(countryCode);
+                line = cityReader.readLine();
+            } while (line != null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String[] countryArray = countries.toArray(new String[0]);
+        Arrays.sort(countryArray);
+        return countryArray;
     }
 
     private Map<String, Location> readCitiesFromFile() {
@@ -98,6 +133,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void navigateToMainActivity(MenuItem item) {
+        name2Location = null;
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -111,6 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... voids) {
+            countries = readCountriesFromFileOrCache();
             name2Location = readCitiesFromFileOrCache();
             String cityId = AppState.getCityId();
             String cityLabel = null;
@@ -127,6 +164,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String cityDisplayName) {
+            ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(parentActivity,
+                    android.R.layout.simple_dropdown_item_1line, countries);
+            Spinner countryDropdown = findViewById(R.id.countryDropdown);
+            countryDropdown.setAdapter(countryAdapter);
+            setText(countryDropdown, AppState.getCountryCode());
+
             String[] dropdownOptions = name2Location.keySet().toArray(new String[]{});
             ArrayAdapter<String> adapter = new ArrayAdapter<>(parentActivity,
                     android.R.layout.simple_dropdown_item_1line, dropdownOptions);
@@ -135,11 +178,23 @@ public class SettingsActivity extends AppCompatActivity {
             textView.setOnItemClickListener((parent, view, position, id) -> {
                 String cityName = adapter.getItem(position);
                 AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
+                AppState.setCountryCode(name2Location.get(cityName).getCountryCode());
                 updateMapsLink(cityName);
             });
             textView.setText(cityDisplayName);
             updateMapsLink(cityDisplayName);
             showSettings();
+        }
+    }
+
+    private void setText(Spinner spinner, String text) {
+        for(int i= 0; i < spinner.getAdapter().getCount(); i++)
+        {
+            if(spinner.getAdapter().getItem(i).toString().equals(text))
+            {
+                spinner.setSelection(i);
+                return;
+            }
         }
     }
 }
