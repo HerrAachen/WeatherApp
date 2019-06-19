@@ -6,16 +6,17 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CityFileConverter {
     public static void main(String[] args) {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("openweathermap.city.list.json");
-             FileWriter writer = new FileWriter("..\\app\\src\\main\\res\\raw\\cities.properties")) {
+        Set<String> countries = new HashSet<>();
+        try (FileReader reader = new FileReader("openweathermap.city.list.json")) {
             Map<Long, String> id2CityName = new HashMap<>();
             Map<String, Integer> cityNameToCount = new HashMap<>();
             JSONArray cities = (JSONArray) jsonParser.parse(reader);
@@ -26,20 +27,35 @@ public class CityFileConverter {
                 long cityId = (long) cityJsonObject.get("id");
                 String lat = getNumberAsString(((JSONObject) cityJsonObject.get("coord")).get("lat"));
                 String longitude = getNumberAsString(((JSONObject) cityJsonObject.get("coord")).get("lon"));
+                countries.add(country);
                 updateCityCount(cityNameToCount, getCityDisplayName(cityName, country));
                 id2CityName.put(cityId, getCityDisplayName(cityName, country));
                 try {
                     Integer count = cityNameToCount.get(getCityDisplayName(cityName, country));
                     String cityNameForFile = cityName + (count > 1 ? "_" + count : "");
-                    writer.write(cityId + ";" + cityNameForFile + ";" + country + ";" + lat + ";" + longitude + "\r\n");
+                    writeToFile(country, cityId, lat, longitude, cityNameForFile);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
+            writeCountryFile(countries);
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void writeCountryFile(Set<String> countries) throws IOException {
+        ArrayList<String> sortedCountries = new ArrayList<>(countries);
+        Collections.sort(sortedCountries);
+        byte[] countriesText = sortedCountries.stream().collect(Collectors.joining("\r\n")).getBytes();
+        Files.write(Paths.get("..\\app\\src\\main\\res\\raw\\countries.txt"), countriesText, StandardOpenOption.CREATE);
+    }
+
+    private static void writeToFile(String country, long cityId, String lat, String longitude, String cityNameForFile) throws IOException {
+        try (FileWriter writer = new FileWriter("..\\app\\src\\main\\res\\raw\\cities_" + country + ".properties", true)) {
+            writer.write(cityId + ";" + cityNameForFile + ";" + lat + ";" + longitude + "\r\n");
         }
     }
 

@@ -36,7 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
         setTitle(getString(R.string.settings));
         showLoadingIcon();
 
-        new CityLoader(this).execute();
+        new CountryLoader(this).execute();
     }
 
     private void showLoadingIcon() {
@@ -138,10 +138,10 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private class CityLoader extends AsyncTask<Void, Integer, String> {
+    private class CountryLoader extends AsyncTask<Void, Integer, String> {
 
         private final SettingsActivity parentActivity;
-        public CityLoader(SettingsActivity parentActivity) {
+        public CountryLoader(SettingsActivity parentActivity) {
             this.parentActivity = parentActivity;
         }
 
