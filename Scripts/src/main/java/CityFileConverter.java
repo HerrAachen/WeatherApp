@@ -23,17 +23,17 @@ public class CityFileConverter {
             cities.forEach(cityJson -> {
                 JSONObject cityJsonObject = (JSONObject) cityJson;
                 String cityName = (String) cityJsonObject.get("name");
-                String country = (String) cityJsonObject.get("country");
+                String countryCode = ((String) cityJsonObject.get("country")).toLowerCase();
                 long cityId = (long) cityJsonObject.get("id");
                 String lat = getNumberAsString(((JSONObject) cityJsonObject.get("coord")).get("lat"));
                 String longitude = getNumberAsString(((JSONObject) cityJsonObject.get("coord")).get("lon"));
-                countries.add(country);
-                updateCityCount(cityNameToCount, getCityDisplayName(cityName, country));
-                id2CityName.put(cityId, getCityDisplayName(cityName, country));
+                countries.add(countryCode);
+                updateCityCount(cityNameToCount, getCityDisplayName(cityName, countryCode));
+                id2CityName.put(cityId, getCityDisplayName(cityName, countryCode));
                 try {
-                    Integer count = cityNameToCount.get(getCityDisplayName(cityName, country));
+                    Integer count = cityNameToCount.get(getCityDisplayName(cityName, countryCode));
                     String cityNameForFile = cityName + (count > 1 ? "_" + count : "");
-                    writeToFile(country, cityId, lat, longitude, cityNameForFile);
+                    writeToFile(countryCode, cityId, lat, longitude, cityNameForFile);
 
                 } catch (IOException e) {
                     e.printStackTrace();

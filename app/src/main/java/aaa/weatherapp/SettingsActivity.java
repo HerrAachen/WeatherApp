@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -75,9 +77,9 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
-    private Map<String, Location> readCitiesFromFileOrCache() {
+    private Map<String, Location> readCitiesFromFileOrCache(String countryCode) {
         if (name2Location == null) {
-            name2Location = readCitiesFromFile();
+            name2Location = readCitiesFromFile(countryCode);
         }
         return name2Location;
     }
@@ -91,14 +93,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     private String[] readCountriesFromFile() {
         Set<String> countries = new HashSet<>();
-        BufferedReader cityReader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.cities)));
+        BufferedReader countryReader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.countries)));
         try {
-            String line = cityReader.readLine();
+            String line = countryReader.readLine();
             do {
-                String[] parts = line.split(";");
-                String countryCode = parts[2];
+                String countryCode = line;
                 countries.add(countryCode);
-                line = cityReader.readLine();
+                line = countryReader.readLine();
             } while (line != null);
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,10 +109,10 @@ public class SettingsActivity extends AppCompatActivity {
         return countryArray;
     }
 
-    private Map<String, Location> readCitiesFromFile() {
+    private Map<String, Location> readCitiesFromFile(String countryCode) {
 
         Map<String, Location> nameToLocation = new HashMap<>();
-        BufferedReader cityReader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.cities)));
+        BufferedReader cityReader = new BufferedReader(new InputStreamReader(getResources().openRawResource(getCityFile(countryCode))));
 
         try {
             String line = cityReader.readLine();
@@ -119,9 +120,8 @@ public class SettingsActivity extends AppCompatActivity {
                 String[] parts = line.split(";");
                 String id = parts[0];
                 String cityName = parts[1];
-                String countryCode = parts[2];
-                String latitude = parts[3];
-                String longitude = parts[4];
+                String latitude = parts[2];
+                String longitude = parts[3];
                 Location location = new Location(cityName, countryCode, id, latitude, longitude);
                 nameToLocation.put(location.getDisplayName(), location);
                 line = cityReader.readLine();
@@ -132,30 +132,48 @@ public class SettingsActivity extends AppCompatActivity {
         return nameToLocation;
     }
 
+    private int getCityFile(String countryCode) {
+        Field[] fields = R.raw.class.getFields();
+        try {
+            for (int i = 0; i < fields.length - 1; i++) {
+                String name = fields[i].getName();
+                if (name.equals("cities_" + countryCode)) {
+                        return fields[i].getInt(null);
+                }
+            }
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        throw new IllegalArgumentException("Could not find file for country code " + countryCode);
+    }
+
     public void navigateToMainActivity(MenuItem item) {
         name2Location = null;
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    private class CountryLoader extends AsyncTask<Void, Integer, String> {
+    private class CityLoader extends AsyncTask<Void, Integer, String> {
 
         private final SettingsActivity parentActivity;
-        public CountryLoader(SettingsActivity parentActivity) {
+        private final String countryCode;
+        private final String preSelectedCityId;
+        public CityLoader(SettingsActivity parentActivity, String countryCode, String preSelectedCityId) {
             this.parentActivity = parentActivity;
+            this.countryCode = countryCode;
+            this.preSelectedCityId = preSelectedCityId;
         }
 
         @Override
         protected String doInBackground(Void... voids) {
-            countries = readCountriesFromFileOrCache();
-            name2Location = readCitiesFromFileOrCache();
-            String cityId = AppState.getCityId();
+            name2Location = readCitiesFromFileOrCache(this.countryCode);
             String cityLabel = null;
-            System.out.println("City ID:" + cityId);
-            for(Location loc: name2Location.values()) {
-                if (loc.getOpenWeatherId().equals(cityId)) {
-                    System.out.println("Found " + loc.getName());
-                    cityLabel = loc.getDisplayName();
+            if (this.preSelectedCityId != null) {
+                for (Location loc : name2Location.values()) {
+                    if (loc.getOpenWeatherId().equals(this.preSelectedCityId)) {
+                        System.out.println("Found " + loc.getName());
+                        cityLabel = loc.getDisplayName();
+                    }
                 }
             }
             System.out.println("City Label:" + cityLabel);
@@ -164,26 +182,62 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String cityDisplayName) {
-            ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(parentActivity,
-                    android.R.layout.simple_dropdown_item_1line, countries);
-            Spinner countryDropdown = findViewById(R.id.countryDropdown);
-            countryDropdown.setAdapter(countryAdapter);
-            setText(countryDropdown, AppState.getCountryCode());
 
             String[] dropdownOptions = name2Location.keySet().toArray(new String[]{});
             ArrayAdapter<String> adapter = new ArrayAdapter<>(parentActivity,
                     android.R.layout.simple_dropdown_item_1line, dropdownOptions);
-            AutoCompleteTextView textView = findViewById(R.id.cityDropdown);
-            textView.setAdapter(adapter);
-            textView.setOnItemClickListener((parent, view, position, id) -> {
+            AutoCompleteTextView cityTextView = findViewById(R.id.cityDropdown);
+            cityTextView.setAdapter(adapter);
+            cityTextView.setOnItemClickListener((parent, view, position, id) -> {
                 String cityName = adapter.getItem(position);
                 AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
                 AppState.setCountryCode(name2Location.get(cityName).getCountryCode());
                 updateMapsLink(cityName);
             });
-            textView.setText(cityDisplayName);
-            updateMapsLink(cityDisplayName);
+            if (cityDisplayName!= null) {
+                cityTextView.setText(cityDisplayName);
+                updateMapsLink(cityDisplayName);
+            } else {
+                cityTextView.setText("");
+            }
             showSettings();
+        }
+    }
+
+    private class CountryLoader extends AsyncTask<Void, Integer, Void> {
+
+        private final SettingsActivity parentActivity;
+        public CountryLoader(SettingsActivity parentActivity) {
+            this.parentActivity = parentActivity;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            countries = readCountriesFromFileOrCache();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(parentActivity,
+                    android.R.layout.simple_dropdown_item_1line, countries);
+            Spinner countryDropdown = findViewById(R.id.countryDropdown);
+            countryDropdown.setAdapter(countryAdapter);
+            setText(countryDropdown, AppState.getCountryCode());
+            countryDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedCountryCode = countryAdapter.getItem(position);
+                    System.out.println("Selected country " + selectedCountryCode);
+                    new CityLoader(parentActivity, selectedCountryCode, null).execute();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            new CityLoader(this.parentActivity, AppState.getCountryCode(), AppState.getCityId()).execute();
         }
     }
 
