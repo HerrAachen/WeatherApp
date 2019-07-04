@@ -188,6 +188,7 @@ public class SettingsActivity extends AppCompatActivity {
                     android.R.layout.simple_dropdown_item_1line, dropdownOptions);
             AutoCompleteTextView cityTextView = findViewById(R.id.cityDropdown);
             cityTextView.setAdapter(adapter);
+            System.out.println("Setting city dropdown. First option: " + dropdownOptions[0]);
             cityTextView.setOnItemClickListener((parent, view, position, id) -> {
                 String cityName = adapter.getItem(position);
                 AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
