@@ -78,10 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private Map<String, Location> readCitiesFromFileOrCache(String countryCode) {
-        if (name2Location == null) {
-            name2Location = readCitiesFromFile(countryCode);
-        }
-        return name2Location;
+        return readCitiesFromFile(countryCode);
     }
 
     private String[] readCountriesFromFileOrCache() {
@@ -171,12 +168,10 @@ public class SettingsActivity extends AppCompatActivity {
             if (this.preSelectedCityId != null) {
                 for (Location loc : name2Location.values()) {
                     if (loc.getOpenWeatherId().equals(this.preSelectedCityId)) {
-                        System.out.println("Found " + loc.getName());
                         cityLabel = loc.getDisplayName();
                     }
                 }
             }
-            System.out.println("City Label:" + cityLabel);
             return cityLabel;
         }
 
@@ -230,7 +225,7 @@ public class SettingsActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedCountryCode = countryAdapter.getItem(position);
                     System.out.println("Selected country " + selectedCountryCode);
-                    new CityLoader(parentActivity, selectedCountryCode, null).execute();
+                    new CityLoader(parentActivity, selectedCountryCode, AppState.getCityId()).execute();
                 }
 
                 @Override
