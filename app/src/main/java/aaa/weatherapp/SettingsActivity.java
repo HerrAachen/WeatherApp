@@ -21,15 +21,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class SettingsActivity extends AppCompatActivity {
 
     private Map<String, Location> name2Location;
-    private String[] countries;
+    private Map<String, String> countries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,29 +84,31 @@ public class SettingsActivity extends AppCompatActivity {
         return readCitiesFromFile(countryCode);
     }
 
-    private String[] readCountriesFromFileOrCache() {
+    private Map<String, String> readCountriesFromFileOrCache() {
         if (countries != null) {
             return countries;
         }
         return readCountriesFromFile();
     }
 
-    private String[] readCountriesFromFile() {
-        Set<String> countries = new HashSet<>();
+    private Map<String, String> readCountriesFromFile() {
+        Map<String, String> countries = new HashMap<>();
         BufferedReader countryReader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.countries)));
         try {
             String line = countryReader.readLine();
             do {
-                String countryCode = line;
-                countries.add(countryCode);
+                String[] parts = line.split(",");
+                if (parts.length > 1) {
+                    String countryCode = parts[0];
+                    String countryName = parts[1];
+                    countries.put(countryName, countryCode);
+                }
                 line = countryReader.readLine();
             } while (line != null);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String[] countryArray = countries.toArray(new String[0]);
-        Arrays.sort(countryArray);
-        return countryArray;
+        return countries;
     }
 
     private Map<String, Location> readCitiesFromFile(String countryCode) {
@@ -159,6 +164,7 @@ public class SettingsActivity extends AppCompatActivity {
             this.parentActivity = parentActivity;
             this.countryCode = countryCode;
             this.preSelectedCityId = preSelectedCityId;
+            System.out.println("New City Dropdown for country: " + this.countryCode);
         }
 
         @Override
@@ -215,16 +221,18 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void v) {
+            String[] countryOptions = getCountryDropdownOptions();
             ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(parentActivity,
-                    android.R.layout.simple_dropdown_item_1line, countries);
+                    android.R.layout.simple_dropdown_item_1line, countryOptions);
             Spinner countryDropdown = findViewById(R.id.countryDropdown);
             countryDropdown.setAdapter(countryAdapter);
-            setText(countryDropdown, AppState.getCountryCode());
+            setText(countryDropdown, getCountryFromCode(AppState.getCountryCode()));
             countryDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String selectedCountryCode = countryAdapter.getItem(position);
-                    System.out.println("Selected country " + selectedCountryCode);
+                    String selectedCountry = countryAdapter.getItem(position);
+                    System.out.println("Selected country: " + selectedCountry);
+                    String selectedCountryCode = countries.get(selectedCountry);
                     new CityLoader(parentActivity, selectedCountryCode, AppState.getCityId()).execute();
                 }
 
@@ -235,6 +243,24 @@ public class SettingsActivity extends AppCompatActivity {
             });
             new CityLoader(this.parentActivity, AppState.getCountryCode(), AppState.getCityId()).execute();
         }
+    }
+
+    private String getCountryFromCode(String countryCode) {
+        for(Map.Entry<String,String> countryNameToCode: countries.entrySet()) {
+            if (countryNameToCode.getValue().equals(countryCode)) {
+                return countryNameToCode.getKey();
+            }
+        }
+        throw new RuntimeException("Could not find country name for code:" + countryCode);
+    }
+
+    private String[] getCountryDropdownOptions() {
+        List<String> countryDropdownOptions = new LinkedList<>();
+        for(String countryLongName: countries.keySet()) {
+            countryDropdownOptions.add(countryLongName);
+        }
+        Collections.sort(countryDropdownOptions);
+        return countryDropdownOptions.toArray(new String[0]);
     }
 
     private void setText(Spinner spinner, String text) {

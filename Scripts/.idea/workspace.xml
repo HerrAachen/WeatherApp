@@ -1,7 +1,261 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ba5ce3e-e959-4cd5-af69-3b221fc14b4b" name="Default Changelist" comment="" />
+    <list default="true" id="6ba5ce3e-e959-4cd5-af69-3b221fc14b4b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CityFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CityFileConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/CityFileConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/CityFileConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/aaa/weatherapp/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/aaa/weatherapp/SettingsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ad.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ae.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_af.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ag.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ai.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_al.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_am.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ao.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_aq.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ar.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_as.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_at.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_au.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_aw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ax.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_az.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ba.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bb.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bd.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bf.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bh.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bi.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bj.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bl.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bo.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bq.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_br.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bs.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bt.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_by.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_bz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ca.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cd.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cf.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ch.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ci.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ck.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cl.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_co.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cu.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cv.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cx.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cy.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_cz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_de.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_dj.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_dk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_dm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_do.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_dz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ec.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ee.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_eg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_eh.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_er.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_es.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_et.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_fi.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_fj.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_fk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_fm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_fo.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_fr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ga.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gb.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gd.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ge.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gf.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gh.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gi.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gl.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gp.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gq.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gs.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gt.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gu.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_gy.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_hk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_hn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_hr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ht.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_hu.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_id.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ie.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_il.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_im.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_in.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_iq.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ir.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_is.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_it.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_je.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_jm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_jo.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_jp.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ke.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_kg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_kh.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ki.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_km.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_kn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_kp.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_kr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_kw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ky.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_kz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_la.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_lb.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_lc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_li.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_lk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_lr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ls.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_lt.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_lu.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_lv.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ly.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ma.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_md.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_me.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mf.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mh.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ml.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mo.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mp.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mq.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ms.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mt.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mu.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mv.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mx.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_my.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_mz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_na.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_nc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ne.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_nf.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ng.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ni.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_nl.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_no.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_np.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_nr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_nu.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_nz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_om.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pa.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pe.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pf.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ph.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pl.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ps.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pt.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_pw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_py.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_qa.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_re.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ro.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_rs.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_rw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sa.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sb.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sd.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_se.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sh.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_si.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sj.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sl.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_so.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ss.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_st.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sv.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sx.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sy.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_sz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_td.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tf.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_th.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tj.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tl.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_to.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tt.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tv.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_tz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ua.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ug.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_us.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_uy.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_uz.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_va.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_vc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ve.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_vg.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_vi.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_vn.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_vu.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_wf.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ws.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_xk.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ye.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_yt.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_za.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_zm.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_zw.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/countries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/raw/countries.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,7 +282,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/CityFileConverter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="33" column="32" lean-forward="true" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+              <caret line="300" column="40" selection-start-line="300" selection-start-column="40" selection-end-line="300" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -96,6 +350,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -125,7 +380,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -234,8 +488,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27836612" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29198185" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -245,7 +500,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -289,7 +544,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/CityFileConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="33" column="32" lean-forward="true" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+          <caret line="300" column="40" selection-start-line="300" selection-start-column="40" selection-end-line="300" selection-end-column="40" />
         </state>
       </provider>
     </entry>

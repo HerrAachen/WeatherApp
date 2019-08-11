@@ -20,6 +20,7 @@ public class AppState {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, 0);
         cityId = preferences.getString(CITY_ID_KEY, VANCOUVER_ID);
         countryCode = preferences.getString(COUNTRY_CODE_KEY, "ca");
+        System.out.println("Initial Country Code:" + countryCode);
         Paper.init(applicationContext);
     }
 
