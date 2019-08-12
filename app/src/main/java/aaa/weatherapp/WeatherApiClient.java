@@ -22,7 +22,7 @@ public class WeatherApiClient {
     public static final String CHART_DATA_STORAGE_KEY = "chartData";
     private final Context context;
     private final String apiKey;
-    private static final String OPEN_WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast";
+    private static final String OPEN_WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast";
 
     public WeatherApiClient(Context context) {
         this.context = context;
@@ -54,6 +54,7 @@ public class WeatherApiClient {
             }
         }, error -> {
             String errorString = error.toString();
+            Log.e("Open Weather API", errorString);
             if (error.networkResponse != null) {
                 errorString = new String(error.networkResponse.data);
             }
@@ -65,7 +66,6 @@ public class WeatherApiClient {
                 }
                 errorString = "Not connected to the internet";
             }
-            Log.e("Open Weather API Error", errorString);
             errorHandler.handleError(errorString);
         }));
     }

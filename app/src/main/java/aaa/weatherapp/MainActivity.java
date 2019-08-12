@@ -11,8 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import org.json.JSONException;
-
 public class MainActivity extends AppCompatActivity implements ChartFragment.OnFragmentInteractionListener {
 
     private ChartPagerAdapter chartPagerAdapter;
