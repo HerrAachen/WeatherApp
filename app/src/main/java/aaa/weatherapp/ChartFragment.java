@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -137,19 +138,11 @@ public class ChartFragment extends Fragment {
         configureRainAxis(chartData, chart.getAxisRight());
         configureTemperatureAxis(chartData, chart.getAxisLeft());
         chart.setDescription(null);
-        Runnable swipeRightAction = () -> {
-            if (viewToShow != ChartView.DAY) {
-                viewToShow = ChartView.DAY;
-                refreshWeatherView(null);
-            }
-        };
-        Runnable swipeLeftAction = () -> {
-            if (viewToShow != ChartView.FIVE_DAYS) {
-                viewToShow = ChartView.FIVE_DAYS;
-                refreshWeatherView(null);
-            }
-        };
-        chart.setOnChartGestureListener(new ChartGestureListener(swipeLeftAction, swipeRightAction));
+//        Runnable chartClickCallback = () -> {
+//            System.out.println("Chart Click Callback");
+//        };
+//        chart.setOnChartGestureListener(new ChartGestureListener(chartClickCallback));
+        chart.setMarker(new ChartMarker(this.getContext()));
         chart.invalidate();
     }
 

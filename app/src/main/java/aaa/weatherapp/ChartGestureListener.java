@@ -6,12 +6,10 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 
 public class ChartGestureListener implements OnChartGestureListener {
-    private final Runnable swipeLeftCallback;
-    private final Runnable swipeRightCallback;
+    private final Runnable clickCallback;
 
-    public ChartGestureListener(Runnable swipeLeftCallback, Runnable swipeRightCallback) {
-        this.swipeLeftCallback = swipeLeftCallback;
-        this.swipeRightCallback = swipeRightCallback;
+    public ChartGestureListener(Runnable clickCallback) {
+        this.clickCallback = clickCallback;
     }
 
     @Override
@@ -36,25 +34,13 @@ public class ChartGestureListener implements OnChartGestureListener {
 
     @Override
     public void onChartSingleTapped(MotionEvent me) {
-
+        System.out.println("Chart Click:" + me);
+        this.clickCallback.run();
     }
 
     @Override
     public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-        if (isSwipeLeft(me1, me2)) {
-            swipeLeftCallback.run();
-        }
-        if (isSwipeRight(me1, me2)) {
-            swipeRightCallback.run();
-        }
-    }
 
-    private boolean isSwipeLeft(MotionEvent start, MotionEvent end) {
-        return start.getX() - end.getX() > Math.abs(end.getY() - start.getY());
-    }
-
-    private boolean isSwipeRight(MotionEvent start, MotionEvent end) {
-        return end.getX() - start.getX() > Math.abs(end.getY() - start.getY());
     }
 
     @Override
