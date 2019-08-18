@@ -7,7 +7,12 @@ import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ChartMarker extends MarkerView {
+
+    private static SimpleDateFormat popupDateFormat = new SimpleDateFormat("E hh:mm a");
 
     private TextView textView;
     public ChartMarker(Context context) {
@@ -18,19 +23,23 @@ public class ChartMarker extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         System.out.println("ChartMarker.refreshContent " + e);
+        System.out.println("Data " + e.getData());
         System.out.println(highlight);
+        String text = "";
+        text += popupDateFormat.format(new Date((long)e.getX() * 1000)) + "\n";
         if (highlight.getDataSetIndex() == 0) {
-            textView.setText(e.getY() + "°C");
+            text += e.getY() + "°C";
         }
         if (highlight.getDataSetIndex() == 1) {
-            textView.setText(e.getY() + "% Cloud Cover");
+            text += e.getY() + "% Cloud Cover";
         }
         if (highlight.getDataSetIndex() == 2) {
-            textView.setText(e.getY() + "% Humidity");
+            text += e.getY() + "% Humidity";
         }
         if (highlight.getDataSetIndex() == 3) {
-            textView.setText(e.getY() + "mm rain in 3h");
+            text += e.getY() + "mm rain in 3h";
         }
+        textView.setText(text);
 
         super.refreshContent(e, highlight);
     }
