@@ -15,9 +15,12 @@ public class ChartMarker extends MarkerView {
     private static SimpleDateFormat popupDateFormat = new SimpleDateFormat("E hh:mm a");
 
     private TextView textView;
-    public ChartMarker(Context context) {
+    private ChartData chartData;
+    public ChartMarker(Context context, ChartData chartData) {
         super(context, R.layout.chart_popup);
+        this.chartData = chartData;
         textView = findViewById(R.id.chartPopupContent);
+
     }
 
     @Override
@@ -26,19 +29,13 @@ public class ChartMarker extends MarkerView {
         System.out.println("Data " + e.getData());
         System.out.println(highlight);
         String text = "";
+        int dataIndex = chartData.getIndex((int) e.getX());
         text += popupDateFormat.format(new Date((long)e.getX() * 1000)) + "\n";
-        if (highlight.getDataSetIndex() == 0) {
-            text += e.getY() + "°C";
-        }
-        if (highlight.getDataSetIndex() == 1) {
-            text += e.getY() + "% Cloud Cover";
-        }
-        if (highlight.getDataSetIndex() == 2) {
-            text += e.getY() + "% Humidity";
-        }
-        if (highlight.getDataSetIndex() == 3) {
-            text += e.getY() + "mm rain in 3h";
-        }
+        text += chartData.temperatures.get(dataIndex) + "°C\n";
+        text += chartData.cloudCoverValues.get(dataIndex) + "% Cloud Cover\n";
+        text += chartData.humidity.get(dataIndex) + "% Humidity\n";
+        text += chartData.rainValues.get(dataIndex) + "mm rain in 3h\n";
+        text += chartData.pressureValues.get(dataIndex) + "hPa\n";
         textView.setText(text);
 
         super.refreshContent(e, highlight);

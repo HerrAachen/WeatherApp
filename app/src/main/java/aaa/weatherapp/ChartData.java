@@ -126,4 +126,19 @@ public class ChartData {
     public void setLastUpdatedToNow() {
         lastUpdated = new Date();
     }
+
+    public int getIndex(Integer date) {
+        int i=0;
+        int minDistance = Integer.MAX_VALUE;
+        int indexOfClosestMatch = -1;
+        for(Integer d: this.dates) {
+            int distance = Math.abs(date - d);
+            if (distance < minDistance) {
+                indexOfClosestMatch = i;
+                minDistance = distance;
+            }
+            i++;
+        }
+        return indexOfClosestMatch;
+    }
 }
