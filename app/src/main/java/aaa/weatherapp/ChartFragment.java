@@ -33,6 +33,7 @@ import java.util.List;
  * Use the {@link ChartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class ChartFragment extends Fragment {
 
     private WeatherApiClient weatherApiClient;

@@ -192,8 +192,7 @@ public class SettingsActivity extends AppCompatActivity {
             System.out.println("Setting city dropdown. First option: " + dropdownOptions[0]);
             cityTextView.setOnItemClickListener((parent, view, position, id) -> {
                 String cityName = adapter.getItem(position);
-                AppState.setCityId(name2Location.get(cityName).getOpenWeatherId());
-                AppState.setCountryCode(name2Location.get(cityName).getCountryCode());
+                AppState.setLocation(name2Location.get(cityName));
                 updateMapsLink(cityName);
             });
             if (cityDisplayName!= null) {

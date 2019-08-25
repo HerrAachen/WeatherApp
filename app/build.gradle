@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-def apikeyPropertiesFile = rootProject.file("openweatherapikey.properties")
+def apikeyPropertiesFile = rootProject.file("apikeys.properties")
 def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
@@ -21,6 +21,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "apiKey", apikeyProperties['apiKey'])
+        buildConfigField("String", "aqicnApiKey", apikeyProperties['aqicnApiKey'])
     }
     buildTypes {
         release {

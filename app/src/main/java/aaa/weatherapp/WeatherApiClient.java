@@ -32,13 +32,13 @@ public class WeatherApiClient {
     public void getAndCacheForecast(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
         boolean shouldGetUpdateFromServer = shouldRefreshFromServer(cityId);
         if (shouldGetUpdateFromServer) {
-            getFromServerOrAppStateOrFile(cityId, callbackFunction, errorHandler);
+            getFromServer(cityId, callbackFunction, errorHandler);
         }
 
         callbackFunction.onResponse(getFromAppStateOrFile());
     }
 
-    private void getFromServerOrAppStateOrFile(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
+    private void getFromServer(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
         String url = getOpenWeatherUrl(cityId);
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(new JsonObjectRequest(Request.Method.GET, url, null, response -> {

@@ -7,4 +7,6 @@
     <string name="done">Done</string>
     <string name="lastUpdated">Last updated: </string>
     <string name="chooseCountry">Choose Country</string>
+    <string name="pm25Colon">PM 25:</string>
+    <string name="locationColon">Location:</string>
 </resources>
