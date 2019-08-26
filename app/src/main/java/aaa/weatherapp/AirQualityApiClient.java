@@ -13,6 +13,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 
+import java.util.Date;
+
 import io.paperdb.Paper;
 
 public class AirQualityApiClient {
@@ -20,6 +22,7 @@ public class AirQualityApiClient {
     private final Context context;
     private final String apiKey;
     private static final String AQICN_BASE_URL = "https://api.waqi.info/feed/";
+    private static final String AIR_QUALITY_DATA_STORAGE_KEY = "AIR_QUALITY_DATA_STORAGE_KEY";
 
     public AirQualityApiClient(Context context) {
         this.context = context;
@@ -27,7 +30,10 @@ public class AirQualityApiClient {
     }
 
     public void getAndCacheAirQualityData(String latitude, String longitude, Response.Listener<AirQualityData> callbackFunction, ErrorHandler errorHandler) {
-        getFromServer(latitude, longitude, callbackFunction, errorHandler);
+        if (shouldRefreshFromServer(latitude, longitude)) {
+            getFromServer(latitude, longitude, callbackFunction, errorHandler);
+        }
+        callbackFunction.onResponse(getFromAppStateOrFile());
     }
 
     private void getFromServer(String latitude, String longitude, Response.Listener<AirQualityData> callbackFunction, ErrorHandler errorHandler) {
@@ -37,9 +43,9 @@ public class AirQualityApiClient {
         queue.add(new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
                 AirQualityData airQualityData = AirQualityData.parse(response);
-//                chartData.setLastUpdatedToNow();
-//                AppState.setChartData(chartData);
-//                Paper.book().write(CHART_DATA_STORAGE_KEY, chartData);
+                airQualityData.setLastUpdatedToNow();
+                AppState.setAirQualityData(airQualityData);
+                Paper.book().write(AIR_QUALITY_DATA_STORAGE_KEY, airQualityData);
                 callbackFunction.onResponse(airQualityData);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -52,11 +58,11 @@ public class AirQualityApiClient {
                 errorString = new String(error.networkResponse.data);
             }
             if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-//                ChartData chartData = getFromAppStateOrFile();
-//                if (chartData != null) {
-//                    callbackFunction.onResponse(chartData);
-//                    return;
-//                }
+                AirQualityData airQualityData = getFromAppStateOrFile();
+                if (airQualityData != null) {
+                    callbackFunction.onResponse(airQualityData);
+                    return;
+                }
                 errorString = "Not connected to the internet";
             }
             errorHandler.handleError(errorString);
@@ -65,5 +71,24 @@ public class AirQualityApiClient {
 
     private String getAqicnUrl(String latitude, String longitude) {
         return AQICN_BASE_URL + "geo:" + latitude + ";" + longitude + "/?token=" + apiKey;
+    }
+
+    private AirQualityData getFromAppStateOrFile() {
+        if (AppState.getAirQualityData() != null) {
+            return AppState.getAirQualityData();
+        }
+        return Paper.book().read(AIR_QUALITY_DATA_STORAGE_KEY);
+    }
+
+    private boolean shouldRefreshFromServer(String latitude, String longitude) {
+        AirQualityData cachedData = getFromAppStateOrFile();
+        return isLastUpdateTooOld(cachedData); //TODO: Handle case of changed city selection
+    }
+
+    private boolean isLastUpdateTooOld(AirQualityData cachedData) {
+        long timeoutMinutes = 15;
+        long timeoutMilliseconds = timeoutMinutes * 60 * 1000;
+        Date timeoutDate = new Date(System.currentTimeMillis() - timeoutMilliseconds);
+        return cachedData == null || cachedData.getLastUpdated().before(timeoutDate);
     }
 }

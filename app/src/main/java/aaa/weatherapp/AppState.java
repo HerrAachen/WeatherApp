@@ -18,6 +18,7 @@ public class AppState {
     private static String longitude;
     private static Context context;
     private static ChartData chartData;
+    private static AirQualityData airQualityData;
 
     public static void initialize(Context applicationContext) {
         context = applicationContext;
@@ -82,6 +83,13 @@ public class AppState {
 
     public static void setChartData(ChartData inputChartData) {
         chartData = inputChartData;
+    }
+
+    public static void setAirQualityData(AirQualityData inputAirQualityData) {
+        airQualityData = inputAirQualityData;
+    }
+    public static AirQualityData getAirQualityData() {
+        return airQualityData;
     }
 
     public static ChartData getChartData() {

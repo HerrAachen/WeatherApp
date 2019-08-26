@@ -3,6 +3,8 @@ package aaa.weatherapp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 public class AirQualityData {
 
     private double aqi;
@@ -11,11 +13,14 @@ public class AirQualityData {
     private Double so2;
     private Double o3;
     private String cityName;
+    private int airQualityStationId;
+    private Date lastUpdated;
 
 
     public static AirQualityData parse(JSONObject response) throws JSONException {
         AirQualityData airQualityData = new AirQualityData();
         JSONObject dataObject = response.getJSONObject("data");
+        airQualityData.airQualityStationId = dataObject.getInt("idx");
         airQualityData.aqi = dataObject.getDouble("aqi");
         JSONObject cityObject = dataObject.getJSONObject("city");
         airQualityData.cityName = cityObject.getString("name");
@@ -49,8 +54,19 @@ public class AirQualityData {
     public double getO3() {
         return o3;
     }
+    public int getAirQualityStationId() {
+        return airQualityStationId;
+    }
 
     public String getCityName() {
         return cityName;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdatedToNow() {
+        lastUpdated = new Date();
     }
 }
