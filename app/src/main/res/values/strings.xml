@@ -9,4 +9,9 @@
     <string name="chooseCountry">Choose Country</string>
     <string name="pm25Colon">PM 25:</string>
     <string name="locationColon">Location:</string>
+    <string name="aqiColon">AQI:</string>
+    <string name="pm10Colon">PM 10:</string>
+    <string name="sulfurDioxideColon">Sulfur Dioxide:</string>
+    <string name="ozoneColon">Ozone:</string>
+    <string name="noData">No Data</string>
 </resources>

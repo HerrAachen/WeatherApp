@@ -1,6 +1,5 @@
 package aaa.weatherapp;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 public class AirQualityFragment extends Fragment {
     private AirQualityApiClient airQualityApiClient;
-//    private ChartFragment.OnFragmentInteractionListener mListener;
     public AirQualityFragment() {
 
     }
@@ -39,36 +37,29 @@ public class AirQualityFragment extends Fragment {
         return inflater.inflate(R.layout.current_air_quality, container, false);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ChartFragment.OnFragmentInteractionListener) {
-//            mListener = (ChartFragment.OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-//        mListener = null;
-    }
-
-
     public void refreshView() {
 //        showLoadingScreen();
         airQualityApiClient.getAndCacheAirQualityData(AppState.getLatitude(), AppState.getLongitude(), airQualityData -> {
             try {
 
-                ((TextView) getView().findViewById(R.id.pm25Value)).setText(String.valueOf(airQualityData.getPm25()));
-                ((TextView) getView().findViewById(R.id.airQualityLocation)).setText(String.valueOf(airQualityData.getCityName()));
+                ((TextView) getView().findViewById(R.id.aqiValue)).setText(getStringValue(airQualityData.getAqi()));
+                ((TextView) getView().findViewById(R.id.pm10Value)).setText(getStringValue(airQualityData.getPm10()));
+                ((TextView) getView().findViewById(R.id.pm25Value)).setText(getStringValue(airQualityData.getPm25()));
+                ((TextView) getView().findViewById(R.id.so2Value)).setText(getStringValue(airQualityData.getSo2()));
+                ((TextView) getView().findViewById(R.id.ozoneValue)).setText(getStringValue(airQualityData.getO3()));
+                ((TextView) getView().findViewById(R.id.airQualityLocation)).setText(airQualityData.getCityName());
             } catch (Exception e) {
 //                showError(e.getMessage());
                 e.printStackTrace();
             }
         }, errorMessage -> {});
+    }
+
+    private String getStringValue(Double number) {
+        if (number == null) {
+            return getString(R.string.noData);
+        }
+        return String.valueOf(number);
     }
 
 }

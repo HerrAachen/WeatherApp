@@ -14,16 +14,68 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
-        android:id="@+id/pm25Label"
+        android:id="@+id/aqiLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/airQualityLocation"
+        android:text="@string/aqiColon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/aqiValue"
+        app:layout_constraintLeft_toRightOf="@id/aqiLabel"
+        app:layout_constraintTop_toBottomOf="@id/airQualityLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/pm10Label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/aqiValue"
+        android:text="@string/pm10Colon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/pm10Value"
+        app:layout_constraintLeft_toRightOf="@id/pm10Label"
+        app:layout_constraintTop_toBottomOf="@id/aqiValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/pm25Label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pm10Value"
         android:text="@string/pm25Colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/pm25Value"
         app:layout_constraintLeft_toRightOf="@id/pm25Label"
-        app:layout_constraintTop_toBottomOf="@id/airQualityLocation"
+        app:layout_constraintTop_toBottomOf="@id/pm10Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/so2Label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pm25Value"
+        android:text="@string/sulfurDioxideColon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/so2Value"
+        app:layout_constraintLeft_toRightOf="@id/so2Label"
+        app:layout_constraintTop_toBottomOf="@id/pm25Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/ozoneLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/so2Value"
+        android:text="@string/ozoneColon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/ozoneValue"
+        app:layout_constraintLeft_toRightOf="@id/ozoneLabel"
+        app:layout_constraintTop_toBottomOf="@id/so2Value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </android.support.constraint.ConstraintLayout>
