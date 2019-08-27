@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
@@ -217,12 +218,7 @@ public class ChartFragment extends Fragment {
     }
 
     private void showError(String errorText) {
-        getView().findViewById(R.id.mainActivityLoadingIcon).setVisibility(View.GONE);
-        getView().findViewById(R.id.temperatureChart).setVisibility(View.GONE);
-        TextView errorTextView = getView().findViewById(R.id.errorText);
-        errorTextView.setVisibility(View.VISIBLE);
-        errorTextView.setText(errorText);
-        hideLastUpdatedLabel();
+        Toast.makeText(getContext(), errorText, Toast.LENGTH_LONG).show();
     }
 
     private void hideLastUpdatedLabel() {

@@ -2,6 +2,7 @@ package aaa.weatherapp;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -39,6 +40,7 @@ public class AirQualityApiClient {
     private void getFromServer(String latitude, String longitude, Response.Listener<AirQualityData> callbackFunction, ErrorHandler errorHandler) {
         String url = getAqicnUrl(latitude, longitude);
         Log.i(LOG_TAG, "Requesting " + url);
+        showNotification();
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
@@ -67,6 +69,10 @@ public class AirQualityApiClient {
             }
             errorHandler.handleError(errorString);
         }));
+    }
+
+    private void showNotification() {
+        Toast.makeText(this.context, this.context.getString(R.string.loadingAirQualityDataFromServer), Toast.LENGTH_SHORT).show();
     }
 
     private String getAqicnUrl(String latitude, String longitude) {

@@ -2,6 +2,7 @@ package aaa.weatherapp;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -23,6 +24,7 @@ public class WeatherApiClient {
     private final Context context;
     private final String apiKey;
     private static final String OPEN_WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast";
+    private static final String LOG_TAG = "Open Weather API";
 
     public WeatherApiClient(Context context) {
         this.context = context;
@@ -41,6 +43,8 @@ public class WeatherApiClient {
     private void getFromServer(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
         String url = getOpenWeatherUrl(cityId);
         RequestQueue queue = Volley.newRequestQueue(context);
+        showToast();
+        Log.i(LOG_TAG,"Requesting " + url);
         queue.add(new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
                 ChartData chartData = ChartData.parse(response);
@@ -54,7 +58,7 @@ public class WeatherApiClient {
             }
         }, error -> {
             String errorString = error.toString();
-            Log.e("Open Weather API", errorString);
+            Log.e(LOG_TAG, errorString);
             if (error.networkResponse != null) {
                 errorString = new String(error.networkResponse.data);
             }
@@ -68,6 +72,10 @@ public class WeatherApiClient {
             }
             errorHandler.handleError(errorString);
         }));
+    }
+
+    private void showToast() {
+        Toast.makeText(this.context, this.context.getString(R.string.loadingWeatherDataFromServer), Toast.LENGTH_SHORT).show();
     }
 
     private ChartData getFromAppStateOrFile() {

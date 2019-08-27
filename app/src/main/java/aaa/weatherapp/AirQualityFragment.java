@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AirQualityFragment extends Fragment {
     private AirQualityApiClient airQualityApiClient;
@@ -38,7 +39,6 @@ public class AirQualityFragment extends Fragment {
     }
 
     public void refreshView() {
-//        showLoadingScreen();
         airQualityApiClient.getAndCacheAirQualityData(AppState.getLatitude(), AppState.getLongitude(), airQualityData -> {
             try {
 
@@ -49,10 +49,14 @@ public class AirQualityFragment extends Fragment {
                 ((TextView) getView().findViewById(R.id.ozoneValue)).setText(getStringValue(airQualityData.getO3()));
                 ((TextView) getView().findViewById(R.id.airQualityLocation)).setText(airQualityData.getCityName());
             } catch (Exception e) {
-//                showError(e.getMessage());
+                showErrorToast(e.getMessage());
                 e.printStackTrace();
             }
-        }, errorMessage -> {});
+        }, errorMessage -> showErrorToast(errorMessage));
+    }
+
+    private void showErrorToast(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 
     private String getStringValue(Double number) {

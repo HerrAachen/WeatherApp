@@ -14,4 +14,6 @@
     <string name="sulfurDioxideColon">Sulfur Dioxide:</string>
     <string name="ozoneColon">Ozone:</string>
     <string name="noData">No Data</string>
+    <string name="loadingWeatherDataFromServer">Loading weather data from server...</string>
+    <string name="loadingAirQualityDataFromServer">Loading air quality data from server...</string>
 </resources>
