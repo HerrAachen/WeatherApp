@@ -48,6 +48,7 @@ public class AirQualityFragment extends Fragment {
                 ((TextView) getView().findViewById(R.id.so2Value)).setText(getStringValue(airQualityData.getSo2()));
                 ((TextView) getView().findViewById(R.id.ozoneValue)).setText(getStringValue(airQualityData.getO3()));
                 ((TextView) getView().findViewById(R.id.airQualityLocation)).setText(airQualityData.getCityName());
+                ((TextView) getView().findViewById(R.id.airQualityLastUpdateValue)).setText(Constants.lastUpdatedDateFormat.format(airQualityData.getLastUpdated()));
             } catch (Exception e) {
                 showErrorToast(e.getMessage());
                 e.printStackTrace();

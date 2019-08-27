@@ -11,6 +11,8 @@
     <TextView
         android:id="@+id/airQualityLocation"
         app:layout_constraintLeft_toRightOf="@id/locationLabel"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
@@ -24,6 +26,9 @@
         android:id="@+id/aqiValue"
         app:layout_constraintLeft_toRightOf="@id/aqiLabel"
         app:layout_constraintTop_toBottomOf="@id/airQualityLocation"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
@@ -37,6 +42,9 @@
         android:id="@+id/pm10Value"
         app:layout_constraintLeft_toRightOf="@id/pm10Label"
         app:layout_constraintTop_toBottomOf="@id/aqiValue"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
@@ -50,6 +58,9 @@
         android:id="@+id/pm25Value"
         app:layout_constraintLeft_toRightOf="@id/pm25Label"
         app:layout_constraintTop_toBottomOf="@id/pm10Value"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
@@ -63,6 +74,9 @@
         android:id="@+id/so2Value"
         app:layout_constraintLeft_toRightOf="@id/so2Label"
         app:layout_constraintTop_toBottomOf="@id/pm25Value"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
@@ -76,6 +90,24 @@
         android:id="@+id/ozoneValue"
         app:layout_constraintLeft_toRightOf="@id/ozoneLabel"
         app:layout_constraintTop_toBottomOf="@id/so2Value"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/airQualityLastUpdateLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/lastUpdated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/airQualityLastUpdateValue"
+        app:layout_constraintStart_toEndOf="@id/airQualityLastUpdateLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </android.support.constraint.ConstraintLayout>

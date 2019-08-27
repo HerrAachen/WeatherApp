@@ -38,7 +38,6 @@ import java.util.List;
 public class ChartFragment extends Fragment {
 
     private WeatherApiClient weatherApiClient;
-    private static SimpleDateFormat lastUpdatedDateFormat = new SimpleDateFormat("E hh:mm a");
     private ChartView viewToShow;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -200,7 +199,7 @@ public class ChartFragment extends Fragment {
     private void showLastUpdatedLabel(ChartData chartData) {
         getView().findViewById(R.id.lastUpdated).setVisibility(View.VISIBLE);
         getView().findViewById(R.id.lastUpdatedDateTime).setVisibility(View.VISIBLE);
-        ((TextView) getView().findViewById(R.id.lastUpdatedDateTime)).setText(lastUpdatedDateFormat.format(chartData.getLastUpdated()));
+        ((TextView) getView().findViewById(R.id.lastUpdatedDateTime)).setText(Constants.lastUpdatedDateFormat.format(chartData.getLastUpdated()));
     }
 
     private void showChart(ChartData chartData) {
