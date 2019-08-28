@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class AirQualityData {
 
-    private double aqi;
+    private Double aqi;
     private Double pm25;
     private Double pm10;
     private Double so2;
@@ -15,6 +15,7 @@ public class AirQualityData {
     private String cityName;
     private int airQualityStationId;
     private Date lastUpdated;
+    private Date measurementDate;
 
 
     public static AirQualityData parse(JSONObject response) throws JSONException {
@@ -29,7 +30,12 @@ public class AirQualityData {
         airQualityData.pm25 = getIaqiValue("pm25", iaqiObject);
         airQualityData.so2 = getIaqiValue("so2", iaqiObject);
         airQualityData.o3 = getIaqiValue("o3", iaqiObject);
+        airQualityData.measurementDate = getDate(dataObject.getJSONObject("time").getLong("v"));
         return airQualityData;
+    }
+
+    private static Date getDate(long epochSeconds) {
+        return new Date(epochSeconds * 1000);
     }
 
     private static Double getIaqiValue(String key, JSONObject iaqiObject) throws JSONException {
@@ -39,19 +45,19 @@ public class AirQualityData {
         return null;
     }
 
-    public double getPm25() {
+    public Double getPm25() {
         return pm25;
     }
-    public double getPm10() {
+    public Double getPm10() {
         return pm10;
     }
-    public double getAqi() {
+    public Double getAqi() {
         return aqi;
     }
-    public double getSo2() {
+    public Double getSo2() {
         return so2;
     }
-    public double getO3() {
+    public Double getO3() {
         return o3;
     }
     public int getAirQualityStationId() {
@@ -64,6 +70,9 @@ public class AirQualityData {
 
     public Date getLastUpdated() {
         return lastUpdated;
+    }
+    public Date getMeasurementDate() {
+        return measurementDate;
     }
 
     public void setLastUpdatedToNow() {

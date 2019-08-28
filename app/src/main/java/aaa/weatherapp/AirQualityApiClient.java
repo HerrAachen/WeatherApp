@@ -33,8 +33,9 @@ public class AirQualityApiClient {
     public void getAndCacheAirQualityData(String latitude, String longitude, Response.Listener<AirQualityData> callbackFunction, ErrorHandler errorHandler) {
         if (shouldRefreshFromServer(latitude, longitude)) {
             getFromServer(latitude, longitude, callbackFunction, errorHandler);
+        } else {
+            callbackFunction.onResponse(getFromAppStateOrFile());
         }
-        callbackFunction.onResponse(getFromAppStateOrFile());
     }
 
     private void getFromServer(String latitude, String longitude, Response.Listener<AirQualityData> callbackFunction, ErrorHandler errorHandler) {

@@ -33,11 +33,12 @@ public class WeatherApiClient {
 
     public void getAndCacheForecast(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
         boolean shouldGetUpdateFromServer = shouldRefreshFromServer(cityId);
+        Log.i(LOG_TAG, "shouldGetUpdateFromServer:" + shouldGetUpdateFromServer);
         if (shouldGetUpdateFromServer) {
             getFromServer(cityId, callbackFunction, errorHandler);
+        } else {
+            callbackFunction.onResponse(getFromAppStateOrFile());
         }
-
-        callbackFunction.onResponse(getFromAppStateOrFile());
     }
 
     private void getFromServer(String cityId, Response.Listener<ChartData> callbackFunction, ErrorHandler errorHandler) {
