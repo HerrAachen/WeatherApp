@@ -16,6 +16,7 @@ public class AirQualityData {
     private int airQualityStationId;
     private Date lastUpdated;
     private Date measurementDate;
+    private String triggeredByOpenWeatherId;
 
 
     public static AirQualityData parse(JSONObject response) throws JSONException {
@@ -74,8 +75,14 @@ public class AirQualityData {
     public Date getMeasurementDate() {
         return measurementDate;
     }
+    public String getTriggeredByOpenWeatherId() {
+        return triggeredByOpenWeatherId;
+    }
 
     public void setLastUpdatedToNow() {
         lastUpdated = new Date();
+    }
+    public void setTriggeredByOpenWeatherId(String openWeatherId) {
+        this.triggeredByOpenWeatherId = openWeatherId;
     }
 }

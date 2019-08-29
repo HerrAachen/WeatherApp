@@ -2,6 +2,7 @@ package aaa.weatherapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import io.paperdb.Paper;
 
@@ -27,7 +28,7 @@ public class AppState {
         countryCode = preferences.getString(COUNTRY_CODE_KEY, "ca");
         latitude = preferences.getString(LATITUDE_KEY, "54");
         longitude = preferences.getString(LONGITUDE_KEY, "-135");
-        System.out.println("Initial Country Code:" + countryCode);
+        Log.i("AppState", "Initial Country Code:" + countryCode);
         Paper.init(applicationContext);
     }
 

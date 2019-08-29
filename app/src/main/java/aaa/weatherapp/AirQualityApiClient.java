@@ -31,7 +31,7 @@ public class AirQualityApiClient {
     }
 
     public void getAndCacheAirQualityData(String latitude, String longitude, Response.Listener<AirQualityData> callbackFunction, ErrorHandler errorHandler) {
-        if (shouldRefreshFromServer(latitude, longitude)) {
+        if (shouldRefreshFromServer()) {
             getFromServer(latitude, longitude, callbackFunction, errorHandler);
         } else {
             callbackFunction.onResponse(getFromAppStateOrFile());
@@ -47,6 +47,7 @@ public class AirQualityApiClient {
             try {
                 AirQualityData airQualityData = AirQualityData.parse(response);
                 airQualityData.setLastUpdatedToNow();
+                airQualityData.setTriggeredByOpenWeatherId(AppState.getCityId());
                 AppState.setAirQualityData(airQualityData);
                 Paper.book().write(AIR_QUALITY_DATA_STORAGE_KEY, airQualityData);
                 callbackFunction.onResponse(airQualityData);
@@ -87,9 +88,9 @@ public class AirQualityApiClient {
         return Paper.book().read(AIR_QUALITY_DATA_STORAGE_KEY);
     }
 
-    private boolean shouldRefreshFromServer(String latitude, String longitude) {
+    private boolean shouldRefreshFromServer() {
         AirQualityData cachedData = getFromAppStateOrFile();
-        return isLastUpdateTooOld(cachedData); //TODO: Handle case of changed city selection
+        return isLastUpdateTooOld(cachedData) || cachedData.getTriggeredByOpenWeatherId() != AppState.getCityId();
     }
 
     private boolean isLastUpdateTooOld(AirQualityData cachedData) {
