@@ -90,7 +90,7 @@ public class AirQualityApiClient {
 
     private boolean shouldRefreshFromServer() {
         AirQualityData cachedData = getFromAppStateOrFile();
-        return isLastUpdateTooOld(cachedData) || cachedData.getTriggeredByOpenWeatherId() != AppState.getCityId();
+        return isLastUpdateTooOld(cachedData) || !cachedData.getTriggeredByOpenWeatherId().equals(AppState.getCityId());
     }
 
     private boolean isLastUpdateTooOld(AirQualityData cachedData) {

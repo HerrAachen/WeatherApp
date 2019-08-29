@@ -88,7 +88,7 @@ public class WeatherApiClient {
 
     private boolean shouldRefreshFromServer(String cityId) {
         ChartData cachedChartData = getFromAppStateOrFile();
-        return isLastUpdateTooOld(cachedChartData) || cityId != cachedChartData.cityId;
+        return isLastUpdateTooOld(cachedChartData) || !cityId.equals(cachedChartData.cityId);
     }
 
     private boolean isLastUpdateTooOld(ChartData cachedChartData) {
