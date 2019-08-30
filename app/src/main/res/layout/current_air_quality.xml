@@ -4,13 +4,25 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
+        android:id="@+id/currentAirQualityTitle"
+        android:text="@string/currentAirQuality"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
         android:id="@+id/locationLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currentAirQualityTitle"
         android:text="@string/locationColon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/airQualityLocation"
         app:layout_constraintLeft_toRightOf="@id/locationLabel"
+        app:layout_constraintTop_toBottomOf="@id/currentAirQualityTitle"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
@@ -96,16 +108,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
-        android:id="@+id/measurementDateLabel"
+        android:id="@+id/carbonMonoxide"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ozoneValue"
+        android:text="@string/carbonMonoxideColon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/carbonMonoxideValue"
+        app:layout_constraintLeft_toRightOf="@id/carbonMonoxide"
+        app:layout_constraintTop_toBottomOf="@id/ozoneValue"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/nitrogenDioxideLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/carbonMonoxideValue"
+        android:text="@string/nitrogenDioxideColon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/nitrogenDioxideValue"
+        app:layout_constraintLeft_toRightOf="@id/nitrogenDioxideLabel"
+        app:layout_constraintTop_toBottomOf="@id/carbonMonoxideValue"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/measurementDateLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nitrogenDioxideValue"
         android:text="@string/measurementTimeColon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/measurementDateString"
         app:layout_constraintLeft_toRightOf="@id/measurementDateLabel"
-        app:layout_constraintTop_toBottomOf="@id/ozoneValue"
+        app:layout_constraintTop_toBottomOf="@id/nitrogenDioxideValue"
         android:textColor="@android:color/black"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"

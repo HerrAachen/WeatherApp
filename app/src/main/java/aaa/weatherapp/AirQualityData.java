@@ -12,6 +12,8 @@ public class AirQualityData {
     private Double pm10;
     private Double so2;
     private Double o3;
+    private Double co;
+    private Double no2;
     private String cityName;
     private int airQualityStationId;
     private Date lastUpdated;
@@ -31,6 +33,8 @@ public class AirQualityData {
         airQualityData.pm25 = getIaqiValue("pm25", iaqiObject);
         airQualityData.so2 = getIaqiValue("so2", iaqiObject);
         airQualityData.o3 = getIaqiValue("o3", iaqiObject);
+        airQualityData.co = getIaqiValue("co", iaqiObject);
+        airQualityData.no2 = getIaqiValue("no2", iaqiObject);
         airQualityData.measurementDate = getDate(dataObject.getJSONObject("time").getLong("v"));
         return airQualityData;
     }
@@ -60,6 +64,12 @@ public class AirQualityData {
     }
     public Double getO3() {
         return o3;
+    }
+    public Double getCo() {
+        return co;
+    }
+    public Double getNo2() {
+        return no2;
     }
     public int getAirQualityStationId() {
         return airQualityStationId;

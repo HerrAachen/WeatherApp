@@ -17,4 +17,7 @@
     <string name="loadingWeatherDataFromServer">Loading weather data from server...</string>
     <string name="loadingAirQualityDataFromServer">Loading air quality data from server...</string>
     <string name="measurementTimeColon">Time of measurement:</string>
+    <string name="carbonMonoxideColon">Carbon Monoxide:</string>
+    <string name="nitrogenDioxideColon">Nitrogen Dioxide:</string>
+    <string name="currentAirQuality">Current Air Quality</string>
 </resources>

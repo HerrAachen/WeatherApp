@@ -49,6 +49,8 @@ public class AirQualityFragment extends Fragment {
                 ((TextView) getView().findViewById(R.id.pm25Value)).setText(getStringValue(airQualityData.getPm25()));
                 ((TextView) getView().findViewById(R.id.so2Value)).setText(getStringValue(airQualityData.getSo2()));
                 ((TextView) getView().findViewById(R.id.ozoneValue)).setText(getStringValue(airQualityData.getO3()));
+                ((TextView) getView().findViewById(R.id.carbonMonoxideValue)).setText(getStringValue(airQualityData.getCo()));
+                ((TextView) getView().findViewById(R.id.nitrogenDioxideValue)).setText(getStringValue(airQualityData.getNo2()));
                 ((TextView) getView().findViewById(R.id.airQualityLocation)).setText(airQualityData.getCityName());
                 ((TextView) getView().findViewById(R.id.airQualityLastUpdateValue)).setText(Constants.lastUpdatedDateFormat.format(airQualityData.getLastUpdated()));
                 ((TextView) getView().findViewById(R.id.measurementDateString)).setText(new SimpleDateFormat("YYYY-MM-dd hh:mm a").format(airQualityData.getMeasurementDate()));
