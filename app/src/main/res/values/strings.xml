@@ -8,8 +8,7 @@
     <string name="lastUpdated">Last updated: </string>
     <string name="chooseCountry">Choose Country</string>
     <string name="pm25Colon">PM 25:</string>
-    <string name="locationColon">Location:</string>
-    <string name="aqiColon">AQI:</string>
+    <string name="aqiColon">Air Quality Indicator:</string>
     <string name="pm10Colon">PM 10:</string>
     <string name="sulfurDioxideColon">Sulfur Dioxide:</string>
     <string name="ozoneColon">Ozone:</string>
@@ -20,4 +19,5 @@
     <string name="carbonMonoxideColon">Carbon Monoxide:</string>
     <string name="nitrogenDioxideColon">Nitrogen Dioxide:</string>
     <string name="currentAirQuality">Current Air Quality</string>
+    <string name="pollutants">Pollutants:</string>
 </resources>

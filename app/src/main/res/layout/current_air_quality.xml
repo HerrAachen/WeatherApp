@@ -8,23 +8,15 @@
         android:text="@string/currentAirQuality"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="20dp"
+        android:textSize="24dp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
-        android:id="@+id/locationLabel"
+        android:id="@+id/airQualityLocation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/currentAirQualityTitle"
-        android:text="@string/locationColon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/airQualityLocation"
-        app:layout_constraintLeft_toRightOf="@id/locationLabel"
-        app:layout_constraintTop_toBottomOf="@id/currentAirQualityTitle"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
@@ -44,16 +36,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
-        android:id="@+id/pm10Label"
+        android:id="@+id/pollutants"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/aqiValue"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:text="@string/pollutants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/pm10Label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pollutants"
         android:text="@string/pm10Colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/pm10Value"
         app:layout_constraintLeft_toRightOf="@id/pm10Label"
-        app:layout_constraintTop_toBottomOf="@id/aqiValue"
+        app:layout_constraintTop_toBottomOf="@id/pollutants"
         android:textColor="@android:color/black"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
