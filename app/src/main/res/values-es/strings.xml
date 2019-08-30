@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="settings">Preferencias</string>
+    <string name="country">País</string>
+    <string name="done">Guardar</string>
+    <string name="carbonMonoxideColon">Monóxido de carbono:</string>
+    <string name="ozoneColon">Ozono:</string>
+    <string name="nitrogenDioxideColon">Dióxido de nitrógeno:</string>
+    <string name="sulfurDioxideColon">Dióxido de azufre:</string>
+    <string name="chooseCity">Seleccionar ciudad</string>
+    <string name="chooseCountry">Seleccionar país</string>
+</resources>
