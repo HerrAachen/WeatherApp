@@ -20,4 +20,11 @@
     <string name="nitrogenDioxideColon">Nitrogen Dioxide:</string>
     <string name="currentAirQuality">Current Air Quality</string>
     <string name="pollutants">Pollutants:</string>
+    <string name="aqiLevelGood">Good</string>
+    <string name="aqiLevelModerate">Moderate</string>
+    <string name="aqiLevelUnhealthyForSensitive">Unhealthy for sensitive groups</string>
+    <string name="aqiLevelUnhealthy">Unhealthy</string>
+    <string name="aqiLevelVeryUnhealthy">Very unhealthy</string>
+    <string name="aqiLevelHazardous">Hazardous</string>
+    <string name="aqiLevelOffTheChart">Off the AQI Chart</string>
 </resources>

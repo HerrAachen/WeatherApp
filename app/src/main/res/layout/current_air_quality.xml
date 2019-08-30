@@ -36,6 +36,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
+        android:id="@+id/aqiIndexLevel"
+        app:layout_constraintLeft_toRightOf="@id/aqiValue"
+        app:layout_constraintTop_toBottomOf="@id/airQualityLocation"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
         android:id="@+id/pollutants"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/aqiValue"

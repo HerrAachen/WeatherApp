@@ -95,4 +95,16 @@ public class AirQualityData {
     public void setTriggeredByOpenWeatherId(String openWeatherId) {
         this.triggeredByOpenWeatherId = openWeatherId;
     }
+    public int getIndexLevelShortText() {
+        if (aqi < 0) {
+            throw new RuntimeException("AQI value should not be less than 0");
+        }
+        if (aqi<=50) return R.string.aqiLevelGood;
+        if (aqi>50 && aqi<=100) return R.string.aqiLevelModerate;
+        if (aqi>100 && aqi<=150) return R.string.aqiLevelUnhealthyForSensitive;
+        if (aqi>150 && aqi<=200) return R.string.aqiLevelUnhealthy;
+        if (aqi>200 && aqi<=300) return R.string.aqiLevelVeryUnhealthy;
+        if (aqi>300 && aqi<=500) return R.string.aqiLevelHazardous;
+        return R.string.aqiLevelHazardous;
+    }
 }
