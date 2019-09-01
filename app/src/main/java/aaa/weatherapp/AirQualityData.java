@@ -105,6 +105,19 @@ public class AirQualityData {
         if (aqi>150 && aqi<=200) return R.string.aqiLevelUnhealthy;
         if (aqi>200 && aqi<=300) return R.string.aqiLevelVeryUnhealthy;
         if (aqi>300 && aqi<=500) return R.string.aqiLevelHazardous;
-        return R.string.aqiLevelHazardous;
+        return R.string.aqiLevelOffTheChart;
+    }
+
+    public int getIndexLevelColor() {
+        if (aqi < 0) {
+            throw new RuntimeException("AQI value should not be less than 0");
+        }
+        if (aqi<=50) return R.color.airQualityIndexLevelGood;
+        if (aqi>50 && aqi<=100) return R.color.airQualityIndexLevelModerate;
+        if (aqi>100 && aqi<=150) return R.color.airQualityIndexLevelUnhealthyForSensitive;
+        if (aqi>150 && aqi<=200) return R.color.airQualityIndexLevelUnhealthy;
+        if (aqi>200 && aqi<=300) return R.color.airQualityIndexLevelVeryUnhealthy;
+        if (aqi>300 && aqi<=500) return R.color.airQualityIndexLevelHazardous;
+        return R.color.airQualityIndexLevelHazardous;
     }
 }

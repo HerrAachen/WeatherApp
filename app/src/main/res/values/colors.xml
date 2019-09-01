@@ -4,4 +4,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="airQualityIndexLevelGood">#49971C</color>
+    <color name="airQualityIndexLevelModerate">#F0C21E</color>
+    <color name="airQualityIndexLevelUnhealthyForSensitive">#CC6810</color>
+    <color name="airQualityIndexLevelUnhealthy">#CC2010</color>
+    <color name="airQualityIndexLevelVeryUnhealthy">#9410CC</color>
+    <color name="airQualityIndexLevelHazardous">#3A0850</color>
 </resources>

@@ -55,6 +55,7 @@ public class AirQualityFragment extends Fragment {
                 ((TextView) getView().findViewById(R.id.airQualityLastUpdateValue)).setText(Constants.lastUpdatedDateFormat.format(airQualityData.getLastUpdated()));
                 ((TextView) getView().findViewById(R.id.measurementDateString)).setText(new SimpleDateFormat("YYYY-MM-dd hh:mm a").format(airQualityData.getMeasurementDate()));
                 ((TextView) getView().findViewById(R.id.aqiIndexLevel)).setText(airQualityData.getIndexLevelShortText());
+                getView().findViewById(R.id.aqiIndexLevel).setBackgroundColor(getResources().getColor(airQualityData.getIndexLevelColor()));
             } catch (Exception e) {
                 showErrorToast(e.getMessage());
                 e.printStackTrace();
