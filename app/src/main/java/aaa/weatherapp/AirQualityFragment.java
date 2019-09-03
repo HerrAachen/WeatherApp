@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,11 +59,19 @@ public class AirQualityFragment extends Fragment {
                 ((TextView) getView().findViewById(R.id.measurementDateString)).setText(new SimpleDateFormat("YYYY-MM-dd hh:mm a").format(airQualityData.getMeasurementDate()));
                 ((TextView) getView().findViewById(R.id.aqiIndexLevel)).setText(airQualityData.getIndexLevelShortText());
                 getView().findViewById(R.id.aqiIndexLevel).setBackgroundColor(getResources().getColor(airQualityData.getIndexLevelColor()));
+                addAttributions(airQualityData);
+
             } catch (Exception e) {
                 showErrorToast(e.getMessage());
                 e.printStackTrace();
             }
         }, errorMessage -> showErrorToast(errorMessage));
+    }
+
+    private void addAttributions(AirQualityData airQualityData) {
+        TextView firstAttribution = getView().findViewById(R.id.firstAttribution);
+        firstAttribution.setText(Html.fromHtml("<a href='" + airQualityData.getAttributions().get(0).getUrl() + "'>" + airQualityData.getAttributions().get(0).getName() + "</a>"));
+        firstAttribution.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void showErrorToast(String errorMessage) {

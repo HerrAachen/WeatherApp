@@ -1,9 +1,12 @@
 package aaa.weatherapp;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class AirQualityData {
 
@@ -19,6 +22,7 @@ public class AirQualityData {
     private Date lastUpdated;
     private Date measurementDate;
     private String triggeredByOpenWeatherId;
+    private List<HyperLink> attributions;
 
 
     public static AirQualityData parse(JSONObject response) throws JSONException {
@@ -36,7 +40,21 @@ public class AirQualityData {
         airQualityData.co = getIaqiValue("co", iaqiObject);
         airQualityData.no2 = getIaqiValue("no2", iaqiObject);
         airQualityData.measurementDate = getDate(dataObject.getJSONObject("time").getLong("v"));
+        airQualityData.attributions = getAttributions(dataObject);
         return airQualityData;
+    }
+
+    private static List<HyperLink> getAttributions(JSONObject dataObject) throws JSONException {
+        LinkedList<HyperLink> attributions = new LinkedList<>();
+        JSONArray attributionsObject = dataObject.getJSONArray("attributions");
+        for(int i=0;i<attributionsObject.length();i++) {
+            JSONObject attribution = (JSONObject) attributionsObject.get(i);
+            String name = attribution.getString("name");
+            String url = attribution.getString("url");
+            HyperLink hyperLink = new HyperLink(name, url);
+            attributions.add(hyperLink);
+        }
+        return attributions;
     }
 
     private static Date getDate(long epochSeconds) {
@@ -94,6 +112,9 @@ public class AirQualityData {
     }
     public void setTriggeredByOpenWeatherId(String openWeatherId) {
         this.triggeredByOpenWeatherId = openWeatherId;
+    }
+    public List<HyperLink> getAttributions() {
+        return attributions;
     }
     public int getIndexLevelShortText() {
         if (aqi < 0) {
