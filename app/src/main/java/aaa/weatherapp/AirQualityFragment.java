@@ -10,6 +10,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,9 +70,13 @@ public class AirQualityFragment extends Fragment {
     }
 
     private void addAttributions(AirQualityData airQualityData) {
-        TextView firstAttribution = getView().findViewById(R.id.firstAttribution);
-        firstAttribution.setText(Html.fromHtml("<a href='" + airQualityData.getAttributions().get(0).getUrl() + "'>" + airQualityData.getAttributions().get(0).getName() + "</a>"));
-        firstAttribution.setMovementMethod(LinkMovementMethod.getInstance());
+        LinearLayout attributionsContainer = getView().findViewById(R.id.attributionsContainer);
+        for(HyperLink link: airQualityData.getAttributions()) {
+            TextView attribution = new TextView(getContext());
+            attribution.setText(Html.fromHtml("<a href='" + link.getUrl() + "'>" + link.getName() + "</a>"));
+            attribution.setMovementMethod(LinkMovementMethod.getInstance());
+            attributionsContainer.addView(attribution);
+        }
     }
 
     private void showErrorToast(String errorMessage) {

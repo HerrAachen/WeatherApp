@@ -27,4 +27,5 @@
     <string name="aqiLevelVeryUnhealthy">Very unhealthy</string>
     <string name="aqiLevelHazardous">Hazardous</string>
     <string name="aqiLevelOffTheChart">Off the AQI Chart</string>
+    <string name="dataProvidedByColon">Data provided by:</string>
 </resources>
