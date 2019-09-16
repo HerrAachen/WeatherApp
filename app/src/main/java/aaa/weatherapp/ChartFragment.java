@@ -121,9 +121,9 @@ public class ChartFragment extends Fragment {
     private void updateChart(ChartData chartData) {
         LineChart chart = getView().findViewById(R.id.temperatureChart);
         LineDataSet temperatureDataSet = createLineDataSet(chartData.getTemperatureEntries(), "Temperature °C", Color.GREEN, 5, YAxis.AxisDependency.LEFT);
-        LineDataSet cloudCoverDataSet = createLineDataSet(chartData.getCloudCoverEntries(), "Cloud Cover %", Color.GRAY, 4, YAxis.AxisDependency.LEFT);
+        LineDataSet cloudCoverDataSet = createLineDataSet(chartData.getCloudCoverEntries(), "Cloud Cover %", Color.GRAY, 2, YAxis.AxisDependency.LEFT);
         LineDataSet humidityDataSet = createLineDataSet(chartData.getHumidities(), "Humidity %", Color.MAGENTA, 2, YAxis.AxisDependency.LEFT);
-        LineDataSet rainDataSet = createLineDataSet(chartData.getRainEntries(), "Rain 3h mm", Color.BLUE, 2, YAxis.AxisDependency.RIGHT);
+        LineDataSet rainDataSet = createLineDataSet(chartData.getRainEntries(), "Rain 3h mm", Color.BLUE, 4, YAxis.AxisDependency.RIGHT);
         chart.setData(new LineData(temperatureDataSet, cloudCoverDataSet, humidityDataSet, rainDataSet));
         chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
