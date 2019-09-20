@@ -68,13 +68,6 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
         findViewById(R.id.countryDropdown).setVisibility(View.VISIBLE);
     }
 
-    private void updateMapsLink(String cityName) {
-        Location location = name2Location.get(cityName);
-        TextView locationMapsLinkView = findViewById(R.id.locationMapsLink);
-        locationMapsLinkView.setText(Html.fromHtml(createGoogleMapsLink(location)));
-        locationMapsLinkView.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
     private String createGoogleMapsLink(Location location) {
         return "<a href=\"https://www.google.com/maps/search/?api=1&query=" +
                 location.getLatitude() + "," +
@@ -166,11 +159,13 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
 
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    private void focusMapOn(Location location) {
+        LatLng geoCoordinates = new LatLng(Double.parseDouble(location.getLatitude()), Double.parseDouble(location.getLongitude()));
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(geoCoordinates).title(location.getDisplayName()));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(geoCoordinates, 10.0f));
     }
 
     private class CityLoader extends AsyncTask<Void, Integer, String> {
@@ -210,12 +205,13 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
             System.out.println("Setting city dropdown. First option: " + dropdownOptions[0]);
             cityTextView.setOnItemClickListener((parent, view, position, id) -> {
                 String cityName = adapter.getItem(position);
-                AppState.setLocation(name2Location.get(cityName));
-                updateMapsLink(cityName);
+                Location location = name2Location.get(cityName);
+                AppState.setLocation(location);
+                focusMapOn(location);
             });
             if (cityDisplayName!= null) {
                 cityTextView.setText(cityDisplayName);
-                updateMapsLink(cityDisplayName);
+                focusMapOn(name2Location.get(cityDisplayName));
             } else {
                 cityTextView.setText("");
             }
