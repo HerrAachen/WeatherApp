@@ -7,6 +7,7 @@ import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,12 +33,17 @@ public class ChartMarker extends MarkerView {
         int dataIndex = chartData.getIndex((int) e.getX());
         text += popupDateFormat.format(new Date((long)e.getX() * 1000)) + "\n";
         text += chartData.temperatures.get(dataIndex) + "°C\n";
-        text += chartData.cloudCoverValues.get(dataIndex) + "% Cloud Cover\n";
-        text += chartData.humidity.get(dataIndex) + "% Humidity\n";
-        text += chartData.rainValues.get(dataIndex) + "mm rain in 3h\n";
-        text += chartData.pressureValues.get(dataIndex) + "hPa\n";
+        text += Math.round(chartData.cloudCoverValues.get(dataIndex)) + "% Cloud Cover\n";
+        text += Math.round(chartData.humidity.get(dataIndex)) + "% Humidity\n";
+        text += roundToOneDecimal(chartData.rainValues.get(dataIndex)) + "mm rain\n";
+        text += roundToOneDecimal(chartData.pressureValues.get(dataIndex)) + "hPa\n";
         textView.setText(text);
 
         super.refreshContent(e, highlight);
+    }
+
+    private String roundToOneDecimal(Double aDouble) {
+        DecimalFormat oneDecimalFormat = new DecimalFormat("#.#");
+        return oneDecimalFormat.format(aDouble);
     }
 }
