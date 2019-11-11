@@ -4,6 +4,7 @@
     <string name="chooseCity">Choose City</string>
     <string name="country">Country</string>
     <string name="refresh">Refresh</string>
+    <string name="about">About</string>
     <string name="done">Done</string>
     <string name="lastUpdated">Last updated: </string>
     <string name="chooseCountry">Choose Country</string>
@@ -28,4 +29,6 @@
     <string name="aqiLevelHazardous">Hazardous</string>
     <string name="aqiLevelOffTheChart">Off the AQI Chart</string>
     <string name="dataProvidedByColon">Data provided by:</string>
+    <string name="versioColon">Version:</string>
+    <string name="couldNotRetrieveVersion">There was a problem retrieving the version number</string>
 </resources>

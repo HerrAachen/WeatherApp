@@ -43,8 +43,11 @@ public class MainActivity extends AppCompatActivity implements ChartFragment.OnF
     }
 
     public void openSettingsView(MenuItem item) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
+
+    public void openAboutView(MenuItem item) {
+        startActivity(new Intent(this, AboutActivity.class));
     }
 
     @Override

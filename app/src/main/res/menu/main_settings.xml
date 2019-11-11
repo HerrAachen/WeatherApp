@@ -11,5 +11,10 @@
         app:showAsAction="ifRoom"
         android:onClick="refreshWeatherView"
         android:icon="@drawable/baseline_refresh_black_18dp"/>
+    <item android:id="@+id/action_about"
+        android:title="@string/about"
+        app:showAsAction="ifRoom"
+        android:onClick="openAboutView"
+        android:icon="@drawable/baseline_info_black_18dp"/>
 
 </menu>
