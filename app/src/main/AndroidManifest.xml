@@ -15,6 +15,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="remember not to put this in source control"/>
         <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".AboutActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

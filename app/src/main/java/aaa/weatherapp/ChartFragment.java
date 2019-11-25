@@ -135,10 +135,6 @@ public class ChartFragment extends Fragment {
         configureRainAxis(chartData, chart.getAxisRight());
         configureTemperatureAxis(chartData, chart.getAxisLeft());
         chart.setDescription(null);
-//        Runnable chartClickCallback = () -> {
-//            System.out.println("Chart Click Callback");
-//        };
-//        chart.setOnChartGestureListener(new ChartGestureListener(chartClickCallback));
         chart.setMarker(new ChartMarker(this.getContext(), chartData));
         chart.invalidate();
     }

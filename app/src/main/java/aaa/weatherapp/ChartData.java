@@ -22,6 +22,7 @@ public class ChartData {
     List<Double> humidity = new ArrayList<>();
     List<Double> pressureValues = new ArrayList<>();
     List<Double> rainValues = new ArrayList<>();
+    List<Double> snowfallValues = new ArrayList<>();
     Date lastUpdated;
 
     public static ChartData parse(JSONObject response) throws JSONException {
@@ -32,6 +33,7 @@ public class ChartData {
         chartData.humidity = getValues("main", "humidity", weatherItems);
         chartData.pressureValues = getValues("main", "pressure", weatherItems);
         chartData.rainValues = getValues("rain", "3h", weatherItems);
+        chartData.snowfallValues = getValues("snow", "3h", weatherItems);
         for (int i = 0; i < weatherItems.length(); i++) {
             JSONObject weatherItem = weatherItems.getJSONObject(i);
             int date = weatherItem.getInt("dt");
