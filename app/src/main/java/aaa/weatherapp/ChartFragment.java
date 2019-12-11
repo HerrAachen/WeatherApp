@@ -23,6 +23,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -123,7 +124,7 @@ public class ChartFragment extends Fragment {
         LineDataSet temperatureDataSet = createLineDataSet(chartData.getTemperatureEntries(), "Temperature °C", Color.GREEN, 5, YAxis.AxisDependency.LEFT);
         LineDataSet cloudCoverDataSet = createLineDataSet(chartData.getCloudCoverEntries(), "Cloud Cover %", Color.GRAY, 2, YAxis.AxisDependency.LEFT);
         LineDataSet humidityDataSet = createLineDataSet(chartData.getHumidities(), "Humidity %", Color.MAGENTA, 2, YAxis.AxisDependency.LEFT);
-        LineDataSet rainDataSet = createLineDataSet(chartData.getRainEntries(), "Rain 3h mm", Color.BLUE, 4, YAxis.AxisDependency.RIGHT);
+        LineDataSet rainDataSet = createLineDataSet(removeZeros(chartData.getRainEntries()), "Rain 3h mm", Color.BLUE, 4, YAxis.AxisDependency.RIGHT);
         chart.setData(new LineData(temperatureDataSet, cloudCoverDataSet, humidityDataSet, rainDataSet));
         chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
@@ -137,6 +138,23 @@ public class ChartFragment extends Fragment {
         chart.setDescription(null);
         chart.setMarker(new ChartMarker(this.getContext(), chartData));
         chart.invalidate();
+    }
+
+    private List<Entry> removeZeros(List<Entry> rainEntries) {
+        List<Entry> listWithoutRemovedValues = new LinkedList<>();
+        for(int i = 0; i < rainEntries.size(); i++) {
+            Entry currentEntry = rainEntries.get(i);
+            if (shouldIncludeInZeroLessDataset(rainEntries, i, currentEntry)) {
+                listWithoutRemovedValues.add(currentEntry);
+            }
+        }
+        return listWithoutRemovedValues;
+    }
+
+    private boolean shouldIncludeInZeroLessDataset(List<Entry> rainEntries, int i, Entry currentEntry) {
+        return i==0 || i==rainEntries.size()-1 || currentEntry.getY() != 0
+                || rainEntries.get(i-1).getY() != 0
+                || rainEntries.get(i+1).getY() != 0;
     }
 
     private void configureRainAxis(ChartData chartData, YAxis yAxis) {
