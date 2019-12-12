@@ -152,9 +152,9 @@ public class ChartFragment extends Fragment {
     }
 
     private boolean shouldIncludeInZeroLessDataset(List<Entry> rainEntries, int i, Entry currentEntry) {
-        return i==0 || i==rainEntries.size()-1 || currentEntry.getY() != 0
-                || rainEntries.get(i-1).getY() != 0
-                || rainEntries.get(i+1).getY() != 0;
+        return currentEntry.getY() != 0
+                || (i > 0 && rainEntries.get(i-1).getY() != 0)
+                || (i < rainEntries.size()-1 && rainEntries.get(i+1).getY() != 0);
     }
 
     private void configureRainAxis(ChartData chartData, YAxis yAxis) {
