@@ -35,10 +35,8 @@ public class ChartMarker extends MarkerView {
         text += chartData.temperatures.get(dataIndex) + "°C\n";
         text += Math.round(chartData.cloudCoverValues.get(dataIndex)) + "% Cloud Cover\n";
         text += Math.round(chartData.humidity.get(dataIndex)) + "% Humidity\n";
-        text += roundToOneDecimal(chartData.rainValues.get(dataIndex)) + "mm rain\n";
-        if (chartData.snowfallValues.size() > 0) { //This can be removed once all devices all loaded once with snowfall values
-            text += roundToOneDecimal(chartData.snowfallValues.get(dataIndex)) + "cm snow\n";
-        }
+        text += roundToOneDecimal(chartData.rainValues.get(dataIndex)) + "mm Rain (in 3h)\n";
+        text += roundToOneDecimal(chartData.snowfallValues.get(dataIndex)) + "cm Snow (in 3h)\n";
         text += roundToOneDecimal(chartData.pressureValues.get(dataIndex)) + "hPa\n";
         textView.setText(text);
 

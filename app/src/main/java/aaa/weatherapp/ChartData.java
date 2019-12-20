@@ -1,7 +1,5 @@
 package aaa.weatherapp;
 
-import android.util.Log;
-
 import com.github.mikephil.charting.data.Entry;
 
 import org.json.JSONArray;
@@ -52,6 +50,7 @@ public class ChartData {
         chartData.humidity = this.humidity.subList(0, dataPoints);
         chartData.pressureValues = this.pressureValues.subList(0, dataPoints);
         chartData.rainValues = this.rainValues.subList(0, dataPoints);
+        chartData.snowfallValues = this.snowfallValues.subList(0, dataPoints);
         chartData.dates = this.dates.subList(0, dataPoints);
         chartData.cityId = this.cityId;
         chartData.cityName = this.cityName;
@@ -97,6 +96,10 @@ public class ChartData {
         return getEntries(rainValues);
     }
 
+    public List<Entry> getSnowEntries() {
+        return getEntries(snowfallValues);
+    }
+
     private List<Entry> getEntries(List<Double> values) {
         List<Entry> entries = new ArrayList<>();
         for (int i = 0; i < dates.size(); i++) {
@@ -109,6 +112,14 @@ public class ChartData {
         double maxValue = Double.MIN_VALUE;
         for(Double rainValue: rainValues) {
             maxValue = Math.max(maxValue, rainValue);
+        }
+        return maxValue;
+    }
+
+    public double getMaxSnowValue() {
+        double maxValue = Double.MIN_VALUE;
+        for(Double snowValue: snowfallValues) {
+            maxValue = Math.max(maxValue, snowValue);
         }
         return maxValue;
     }

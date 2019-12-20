@@ -121,11 +121,12 @@ public class ChartFragment extends Fragment {
 
     private void updateChart(ChartData chartData) {
         LineChart chart = getView().findViewById(R.id.temperatureChart);
-        LineDataSet temperatureDataSet = createLineDataSet(chartData.getTemperatureEntries(), "Temperature °C", Color.GREEN, 5, YAxis.AxisDependency.LEFT);
-        LineDataSet cloudCoverDataSet = createLineDataSet(chartData.getCloudCoverEntries(), "Cloud Cover %", Color.GRAY, 2, YAxis.AxisDependency.LEFT);
-        LineDataSet humidityDataSet = createLineDataSet(chartData.getHumidities(), "Humidity %", Color.MAGENTA, 2, YAxis.AxisDependency.LEFT);
-        LineDataSet rainDataSet = createLineDataSet(removeZeros(chartData.getRainEntries()), "Rain 3h mm", Color.BLUE, 4, YAxis.AxisDependency.RIGHT);
-        chart.setData(new LineData(temperatureDataSet, cloudCoverDataSet, humidityDataSet, rainDataSet));
+        LineDataSet temperatureDataSet = createLineDataSet(chartData.getTemperatureEntries(), "Temperature", Color.GREEN, 5, YAxis.AxisDependency.LEFT);
+        LineDataSet cloudCoverDataSet = createLineDataSet(chartData.getCloudCoverEntries(), "Clouds", Color.GRAY, 2, YAxis.AxisDependency.LEFT);
+        LineDataSet humidityDataSet = createLineDataSet(chartData.getHumidities(), "Humidity", Color.MAGENTA, 2, YAxis.AxisDependency.LEFT);
+        LineDataSet rainDataSet = createLineDataSet(removeZeros(chartData.getRainEntries()), "Rain", Color.BLUE, 4, YAxis.AxisDependency.RIGHT);
+        LineDataSet snowDataSet = createLineDataSet(removeZeros(chartData.getSnowEntries()), "Snow", Color.BLACK, 2, YAxis.AxisDependency.RIGHT);
+        chart.setData(new LineData(temperatureDataSet, cloudCoverDataSet, humidityDataSet, rainDataSet, snowDataSet));
         chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float epochSeconds) {
@@ -133,7 +134,7 @@ public class ChartFragment extends Fragment {
             }
         });
         chart.getXAxis().setLabelRotationAngle(-15);
-        configureRainAxis(chartData, chart.getAxisRight());
+        configureSnowAndRainAxis(chartData, chart.getAxisRight());
         configureTemperatureAxis(chartData, chart.getAxisLeft());
         chart.setDescription(null);
         chart.setMarker(new ChartMarker(this.getContext(), chartData));
@@ -157,9 +158,9 @@ public class ChartFragment extends Fragment {
                 || (i < rainEntries.size()-1 && rainEntries.get(i+1).getY() != 0);
     }
 
-    private void configureRainAxis(ChartData chartData, YAxis yAxis) {
+    private void configureSnowAndRainAxis(ChartData chartData, YAxis yAxis) {
         yAxis.setAxisMinimum(0);
-        yAxis.setAxisMaximum((float) Math.max(4, chartData.getMaxRainValue()));
+        yAxis.setAxisMaximum((float) Math.max(Math.max(4, chartData.getMaxRainValue()), chartData.getMaxSnowValue()));
         yAxis.setGranularity(2f);
     }
 

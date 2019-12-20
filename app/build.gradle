@@ -17,8 +17,8 @@ android {
         applicationId "aaa.weatherapp"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 8
-        versionName "0.1.7"
+        versionCode 9
+        versionName "0.1.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "apiKey", apikeyProperties['apiKey'])
         buildConfigField("String", "aqicnApiKey", apikeyProperties['aqicnApiKey'])
