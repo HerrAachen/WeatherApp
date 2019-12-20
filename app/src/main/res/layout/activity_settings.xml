@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <CheckBox
+        android:id="@+id/darkMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/darkMode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
     <TextView
         android:id="@+id/countryText"
         android:layout_width="wrap_content"
@@ -15,7 +26,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/chooseCountry"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/darkMode" />
     <Spinner
         android:id="@+id/countryDropdown"
         android:layout_width="match_parent"

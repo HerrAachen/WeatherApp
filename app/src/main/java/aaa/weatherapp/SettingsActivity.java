@@ -2,10 +2,7 @@ package aaa.weatherapp;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,8 +10,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,6 +50,11 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
 
         new CountryLoader(this).execute();
+        CheckBox checkBox = findViewById(R.id.darkMode);
+        checkBox.setChecked(AppState.isDarkModeEnabled());
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            AppState.setDarkMode(isChecked);
+        });
     }
 
     private void showLoadingIcon() {
@@ -66,13 +71,6 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
         findViewById(R.id.cityText).setVisibility(View.VISIBLE);
         findViewById(R.id.countryText).setVisibility(View.VISIBLE);
         findViewById(R.id.countryDropdown).setVisibility(View.VISIBLE);
-    }
-
-    private String createGoogleMapsLink(Location location) {
-        return "<a href=\"https://www.google.com/maps/search/?api=1&query=" +
-                location.getLatitude() + "," +
-                location.getLongitude() +
-                "\">View " + location.getName() + " in Maps</a>";
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

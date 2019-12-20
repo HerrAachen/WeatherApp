@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -121,7 +122,7 @@ public class ChartFragment extends Fragment {
 
     private void updateChart(ChartData chartData) {
         LineChart chart = getView().findViewById(R.id.temperatureChart);
-        LineDataSet temperatureDataSet = createLineDataSet(chartData.getTemperatureEntries(), "Temperature", Color.GREEN, 5, YAxis.AxisDependency.LEFT);
+        LineDataSet temperatureDataSet = createLineDataSet(chartData.getTemperatureEntries(), "Temperature", Color.GREEN, 4, YAxis.AxisDependency.LEFT);
         LineDataSet cloudCoverDataSet = createLineDataSet(chartData.getCloudCoverEntries(), "Clouds", Color.GRAY, 2, YAxis.AxisDependency.LEFT);
         LineDataSet humidityDataSet = createLineDataSet(chartData.getHumidities(), "Humidity", Color.MAGENTA, 2, YAxis.AxisDependency.LEFT);
         LineDataSet rainDataSet = createLineDataSet(removeZeros(chartData.getRainEntries()), "Rain", Color.BLUE, 4, YAxis.AxisDependency.RIGHT);
@@ -138,7 +139,23 @@ public class ChartFragment extends Fragment {
         configureTemperatureAxis(chartData, chart.getAxisLeft());
         chart.setDescription(null);
         chart.setMarker(new ChartMarker(this.getContext(), chartData));
+        setColors(chart);
         chart.invalidate();
+    }
+
+    private void setColors(LineChart chart) {
+        if (AppState.isDarkModeEnabled()) {
+            chart.setBackgroundColor(Color.DKGRAY);
+            chart.setNoDataTextColor(Color.WHITE);
+            chart.setGridBackgroundColor(Color.WHITE);
+            chart.getLegend().setTextColor(Color.WHITE);
+            chart.getXAxis().setTextColor(Color.WHITE);
+            chart.getAxisLeft().setTextColor(Color.WHITE);
+            chart.getAxisRight().setTextColor(Color.WHITE);
+            for(ILineDataSet dataSet: chart.getLineData().getDataSets()) {
+                dataSet.setValueTextColor(Color.WHITE);
+            }
+        }
     }
 
     private List<Entry> removeZeros(List<Entry> rainEntries) {

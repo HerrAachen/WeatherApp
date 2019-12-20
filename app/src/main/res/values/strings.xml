@@ -31,4 +31,5 @@
     <string name="dataProvidedByColon">Data provided by:</string>
     <string name="versioColon">Version:</string>
     <string name="couldNotRetrieveVersion">There was a problem retrieving the version number</string>
+    <string name="darkMode">Dark Mode</string>
 </resources>

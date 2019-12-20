@@ -13,6 +13,7 @@ public class AppState {
     private static final String LATITUDE_KEY = "latitude";
     private static final String LONGITUDE_KEY = "longitude";
     private static final String PREFERENCES_KEY = "Preferences";
+    private static final String DARK_MODE_KEY = "DarkMode";
     private static String cityId;
     private static String countryCode;
     private static String latitude;
@@ -20,6 +21,7 @@ public class AppState {
     private static Context context;
     private static ChartData chartData;
     private static AirQualityData airQualityData;
+    private static boolean darkMode;
 
     public static void initialize(Context applicationContext) {
         context = applicationContext;
@@ -28,6 +30,7 @@ public class AppState {
         countryCode = preferences.getString(COUNTRY_CODE_KEY, "ca");
         latitude = preferences.getString(LATITUDE_KEY, "54");
         longitude = preferences.getString(LONGITUDE_KEY, "-135");
+        darkMode = preferences.getBoolean(DARK_MODE_KEY, false);
         Log.i("AppState", "Initial Country Code:" + countryCode);
         Paper.init(applicationContext);
     }
@@ -75,6 +78,14 @@ public class AppState {
         setLongitude(location.getLongitude());
     }
 
+    public static void setDarkMode(boolean enableDarkMode) {
+        AppState.darkMode = enableDarkMode;
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(DARK_MODE_KEY, darkMode);
+        editor.commit();
+    }
+
     public static String getCityId() {
         return cityId;
     }
@@ -96,4 +107,5 @@ public class AppState {
     public static ChartData getChartData() {
         return chartData;
     }
+    public static boolean isDarkModeEnabled() { return darkMode; }
 }
