@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ba5ce3e-e959-4cd5-af69-3b221fc14b4b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CityFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CityFileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/CityFileConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/CityFileConverter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/aaa/weatherapp/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/aaa/weatherapp/SettingsActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_ad.properties" beforeDir="false" />
@@ -255,6 +252,9 @@
       <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/cities_zw.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/res/raw/countries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/raw/countries.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CityFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CityFileConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/CityFileConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/CityFileConverter.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -350,7 +350,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -380,6 +379,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -490,7 +490,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29198185" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2965204" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />

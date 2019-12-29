@@ -204,7 +204,7 @@ public class ChartFragment extends Fragment {
 
     public void refreshWeatherView(MenuItem item) {
         showLoadingScreen();
-        weatherApiClient.getAndCacheForecast(AppState.getCityId(), fullChartData -> {
+        weatherApiClient.getAndCacheForecast(AppState.getCityId(0), fullChartData -> {
             try {
                 ChartData chartData;
                 if (viewToShow == ChartView.DAY) {

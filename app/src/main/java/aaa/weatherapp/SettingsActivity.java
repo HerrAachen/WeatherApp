@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +48,8 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        new CountryLoader(this).execute();
+        new CountryLoader(this, R.id.countryDropdown, R.id.cityDropdown, 0).execute();
+        new CountryLoader(this, R.id.country2Dropdown, R.id.city2Dropdown, 1).execute();
         CheckBox checkBox = findViewById(R.id.darkMode);
         checkBox.setChecked(AppState.isDarkModeEnabled());
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -171,10 +171,18 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
         private final SettingsActivity parentActivity;
         private final String countryCode;
         private final String preSelectedCityId;
-        public CityLoader(SettingsActivity parentActivity, String countryCode, String preSelectedCityId) {
+        private final int cityDropdownId;
+        private final int locationIndex;
+        public CityLoader(SettingsActivity parentActivity,
+                          String countryCode,
+                          String preSelectedCityId,
+                          int cityDropdownId,
+                          int locationIndex) {
             this.parentActivity = parentActivity;
             this.countryCode = countryCode;
             this.preSelectedCityId = preSelectedCityId;
+            this.cityDropdownId = cityDropdownId;
+            this.locationIndex = locationIndex;
             System.out.println("New City Dropdown for country: " + this.countryCode);
         }
 
@@ -198,13 +206,13 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
             String[] dropdownOptions = name2Location.keySet().toArray(new String[]{});
             ArrayAdapter<String> adapter = new ArrayAdapter<>(parentActivity,
                     android.R.layout.simple_dropdown_item_1line, dropdownOptions);
-            AutoCompleteTextView cityTextView = findViewById(R.id.cityDropdown);
+            AutoCompleteTextView cityTextView = findViewById(cityDropdownId);
             cityTextView.setAdapter(adapter);
             System.out.println("Setting city dropdown. First option: " + dropdownOptions[0]);
             cityTextView.setOnItemClickListener((parent, view, position, id) -> {
                 String cityName = adapter.getItem(position);
                 Location location = name2Location.get(cityName);
-                AppState.setLocation(location);
+                AppState.setLocation(location, locationIndex);
                 focusMapOn(location);
             });
             if (cityDisplayName!= null) {
@@ -220,8 +228,17 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
     private class CountryLoader extends AsyncTask<Void, Integer, Void> {
 
         private final SettingsActivity parentActivity;
-        public CountryLoader(SettingsActivity parentActivity) {
+        private final int countryDropdownId;
+        private final int cityDropdownId;
+        private final int locationIndex;
+        public CountryLoader(SettingsActivity parentActivity,
+                             int countryDropdownId,
+                             int cityDropdownId,
+                             int locationIndex) {
             this.parentActivity = parentActivity;
+            this.countryDropdownId = countryDropdownId;
+            this.cityDropdownId = cityDropdownId;
+            this.locationIndex = locationIndex;
         }
 
         @Override
@@ -235,16 +252,20 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
             String[] countryOptions = getCountryDropdownOptions();
             ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(parentActivity,
                     android.R.layout.simple_dropdown_item_1line, countryOptions);
-            Spinner countryDropdown = findViewById(R.id.countryDropdown);
+            Spinner countryDropdown = findViewById(countryDropdownId);
             countryDropdown.setAdapter(countryAdapter);
-            setText(countryDropdown, getCountryFromCode(AppState.getCountryCode()));
+            setText(countryDropdown, getCountryFromCode(AppState.getCountryCode(locationIndex)));
             countryDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedCountry = countryAdapter.getItem(position);
                     System.out.println("Selected country: " + selectedCountry);
                     String selectedCountryCode = countries.get(selectedCountry);
-                    new CityLoader(parentActivity, selectedCountryCode, AppState.getCityId()).execute();
+                    new CityLoader(parentActivity,
+                            selectedCountryCode,
+                            AppState.getCityId(locationIndex),
+                            cityDropdownId,
+                            locationIndex).execute();
                 }
 
                 @Override
@@ -252,7 +273,11 @@ public class SettingsActivity extends AppCompatActivity implements OnMapReadyCal
 
                 }
             });
-            new CityLoader(this.parentActivity, AppState.getCountryCode(), AppState.getCityId()).execute();
+            new CityLoader(this.parentActivity,
+                    AppState.getCountryCode(locationIndex),
+                    AppState.getCityId(locationIndex),
+                    cityDropdownId,
+                    locationIndex).execute();
         }
     }
 

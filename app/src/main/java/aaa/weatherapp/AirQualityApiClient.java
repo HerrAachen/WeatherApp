@@ -47,7 +47,7 @@ public class AirQualityApiClient {
             try {
                 AirQualityData airQualityData = AirQualityData.parse(response);
                 airQualityData.setLastUpdatedToNow();
-                airQualityData.setTriggeredByOpenWeatherId(AppState.getCityId());
+                airQualityData.setTriggeredByOpenWeatherId(AppState.getCityId(0));
                 AppState.setAirQualityData(airQualityData);
                 Paper.book().write(AIR_QUALITY_DATA_STORAGE_KEY, airQualityData);
                 callbackFunction.onResponse(airQualityData);
@@ -90,7 +90,8 @@ public class AirQualityApiClient {
 
     private boolean shouldRefreshFromServer() {
         AirQualityData cachedData = getFromAppStateOrFile();
-        return isLastUpdateTooOld(cachedData) || !cachedData.getTriggeredByOpenWeatherId().equals(AppState.getCityId());
+        return isLastUpdateTooOld(cachedData) ||
+                !cachedData.getTriggeredByOpenWeatherId().equals(AppState.getCityId(0));
     }
 
     private boolean isLastUpdateTooOld(AirQualityData cachedData) {
