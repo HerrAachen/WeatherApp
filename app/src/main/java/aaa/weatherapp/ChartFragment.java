@@ -217,11 +217,45 @@ public class ChartFragment extends Fragment {
                 showChart(chartData);
                 showLastUpdatedLabel(chartData);
                 setCityName(chartData);
+                showRainSum(chartData);
             } catch (Exception e) {
                 showError(e.getMessage());
                 e.printStackTrace();
             }
         }, errorMessage -> showError("Error: " + errorMessage));
+    }
+
+    private void showRainSum(ChartData chartData) {
+        TextView rainSumLabel = getView().findViewById(R.id.rainSumLabel);
+        TextView rainSumValue = getView().findViewById(R.id.rainSumValue);
+        switch (viewToShow) {
+            case DAY:
+            case FIVE_DAYS:
+                rainSumLabel.setVisibility(View.VISIBLE);
+                rainSumValue.setVisibility(View.VISIBLE);
+                rainSumLabel.setText(getRainSumLabelText());
+                rainSumValue.setText(getRainSumValue(chartData));
+                break;
+            default:
+                rainSumLabel.setVisibility(View.GONE);
+                rainSumValue.setVisibility(View.GONE);
+        }
+    }
+
+    private String getRainSumValue(ChartData chartData) {
+        switch(viewToShow) {
+            case DAY: return NumberUtils.roundToOneDecimal(chartData.get24HourRain()) + "mm";
+            case FIVE_DAYS: return NumberUtils.roundToOneDecimal(chartData.get5DayRainRain()) + "mm";
+            default: throw new RuntimeException("Unexpected ChartView value:" + viewToShow);
+        }
+    }
+
+    private String getRainSumLabelText() {
+        switch(viewToShow) {
+            case DAY: return "24 hour rain:";
+            case FIVE_DAYS: return "5 day rain:";
+            default: throw new RuntimeException("Unexpected ChartView value:" + viewToShow);
+        }
     }
 
     private void setCityName(ChartData chartData) {

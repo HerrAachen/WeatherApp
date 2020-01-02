@@ -100,6 +100,27 @@ public class ChartData {
         return getEntries(snowfallValues);
     }
 
+    public double get24HourRain() {
+        int numberOfRainValuesToSum = 24 / 3;
+        return getSumOfRain(numberOfRainValuesToSum);
+    }
+
+    public double get5DayRainRain() {
+        int numberOfRainValuesToSum = (5 * 24) / 3;
+        return getSumOfRain(numberOfRainValuesToSum);
+    }
+
+    private double getSumOfRain(int numberOfRainValuesToSum) {
+        double sumOfRain = 0;
+        for(int i = 0; i < rainValues.size() && i <= numberOfRainValuesToSum; i++) {
+            Double rainValue = rainValues.get(i);
+            if (rainValue != null) {
+                sumOfRain += rainValue;
+            }
+        }
+        return sumOfRain;
+    }
+
     private List<Entry> getEntries(List<Double> values) {
         List<Entry> entries = new ArrayList<>();
         for (int i = 0; i < dates.size(); i++) {

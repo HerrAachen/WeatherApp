@@ -35,16 +35,11 @@ public class ChartMarker extends MarkerView {
         text += chartData.temperatures.get(dataIndex) + "°C\n";
         text += Math.round(chartData.cloudCoverValues.get(dataIndex)) + "% Cloud Cover\n";
         text += Math.round(chartData.humidity.get(dataIndex)) + "% Humidity\n";
-        text += roundToOneDecimal(chartData.rainValues.get(dataIndex)) + "mm Rain (in 3h)\n";
-        text += roundToOneDecimal(chartData.snowfallValues.get(dataIndex)) + "cm Snow (in 3h)\n";
-        text += roundToOneDecimal(chartData.pressureValues.get(dataIndex)) + "hPa\n";
+        text += NumberUtils.roundToOneDecimal(chartData.rainValues.get(dataIndex)) + "mm Rain (in 3h)\n";
+        text += NumberUtils.roundToOneDecimal(chartData.snowfallValues.get(dataIndex)) + "cm Snow (in 3h)\n";
+        text += NumberUtils.roundToOneDecimal(chartData.pressureValues.get(dataIndex)) + "hPa\n";
         textView.setText(text);
 
         super.refreshContent(e, highlight);
-    }
-
-    private String roundToOneDecimal(Double aDouble) {
-        DecimalFormat oneDecimalFormat = new DecimalFormat("#.#");
-        return oneDecimalFormat.format(aDouble);
     }
 }
