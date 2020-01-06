@@ -153,6 +153,14 @@ public class ChartData {
         return minValue;
     }
 
+    public double getMaxTemperatureValue() {
+        double maxValue = Double.MIN_VALUE;
+        for(Double temperature: temperatures) {
+            maxValue = Math.max(maxValue, temperature);
+        }
+        return maxValue;
+    }
+
     public Date getLastUpdated() {
         return lastUpdated;
     }

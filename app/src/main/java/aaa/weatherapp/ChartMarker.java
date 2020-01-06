@@ -33,6 +33,8 @@ public class ChartMarker extends MarkerView {
         int dataIndex = chartData.getIndex((int) e.getX());
         text += popupDateFormat.format(new Date((long)e.getX() * 1000)) + "\n";
         text += chartData.temperatures.get(dataIndex) + "°C\n";
+        text += "  Low: " + chartData.getMinTemperatureValue() + "°C\n";
+        text += "  High: " + chartData.getMaxTemperatureValue() + "°C\n";
         text += Math.round(chartData.cloudCoverValues.get(dataIndex)) + "% Cloud Cover\n";
         text += Math.round(chartData.humidity.get(dataIndex)) + "% Humidity\n";
         text += NumberUtils.roundToOneDecimal(chartData.rainValues.get(dataIndex)) + "mm Rain (in 3h)\n";
