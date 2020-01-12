@@ -1,13 +1,13 @@
 package aaa.weatherapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -41,7 +41,15 @@ public class ChartMarker extends MarkerView {
         text += NumberUtils.roundToOneDecimal(chartData.snowfallValues.get(dataIndex)) + "cm Snow (in 3h)\n";
         text += NumberUtils.roundToOneDecimal(chartData.pressureValues.get(dataIndex)) + "hPa\n";
         textView.setText(text);
+        setColors(textView);
 
         super.refreshContent(e, highlight);
+    }
+
+    private void setColors(TextView textView) {
+        if (AppState.isDarkModeEnabled()) {
+            textView.setBackgroundColor(Color.DKGRAY);
+            textView.setTextColor(Color.LTGRAY);
+        }
     }
 }
