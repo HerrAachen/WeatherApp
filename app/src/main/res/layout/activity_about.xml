@@ -19,4 +19,20 @@
         android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/buildTimeLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/versionLabel"
+        android:text="@string/buildTimeColon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/buildTimeValue"
+        app:layout_constraintLeft_toRightOf="@id/buildTimeLabel"
+        app:layout_constraintTop_toBottomOf="@id/versionLabel"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

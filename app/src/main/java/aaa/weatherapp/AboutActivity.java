@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Date;
+
 public class AboutActivity extends AppCompatActivity {
 
     @Override
@@ -15,6 +17,7 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         setTitle(getString(R.string.about));
         ((TextView)findViewById(R.id.versionValue)).setText(getVersionName());
+        ((TextView)findViewById(R.id.buildTimeValue)).setText(new Date(BuildConfig.buildTime).toString());
     }
 
     private String getVersionName() {
