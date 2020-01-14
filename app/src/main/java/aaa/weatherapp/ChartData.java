@@ -154,7 +154,8 @@ public class ChartData {
     }
 
     public double getMaxTemperatureValue() {
-        double maxValue = Double.MIN_VALUE;
+        int aNumberLowerThanAnyTemperature = -1000000;
+        double maxValue = aNumberLowerThanAnyTemperature;
         for(Double temperature: temperatures) {
             maxValue = Math.max(maxValue, temperature);
         }

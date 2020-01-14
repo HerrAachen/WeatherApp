@@ -21,7 +21,6 @@ public class ChartMarker extends MarkerView {
         super(context, R.layout.chart_popup);
         this.chartData = chartData;
         textView = findViewById(R.id.chartPopupContent);
-
     }
 
     @Override
